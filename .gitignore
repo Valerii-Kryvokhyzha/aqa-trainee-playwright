@@ -1,3 +1,6 @@
+#test-results folder
+test-results/
+
 # Logs
 logs
 *.log
