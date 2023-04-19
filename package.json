@@ -1,0 +1,22 @@
+{
+	"name": "aqa-trainee-playwright",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"lint": "eslint . --ext .ts",
+		"format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@playwright/test": "^1.32.3",
+		"@typescript-eslint/eslint-plugin": "^5.57.1"
+	},
+	"dependencies": {
+		"eslint": "^8.37.0",
+		"eslint-config-prettier": "^8.8.0",
+		"prettier": "^2.8.7"
+	}
+}
