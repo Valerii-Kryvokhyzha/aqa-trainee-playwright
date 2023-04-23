@@ -1,58 +1,116 @@
-import {test, expect} from '@playwright/test';
-import {URLs} from '../websiteURLs';
+import {expect, test} from '@playwright/test';
+import {driver} from '../base/driver/driver';
+import {URLs} from '../base/pageURLs/websiteURLs';
+import AddUserPage from '../pages/addUserPage';
+import Header from '../base/elements/header';
+import MainPage from '../pages/mainPage';
+import {UserValidationMessage} from '../base/validationMessages/userValidationMessages';
+import {pageTitles, titleProperties} from '../base/pageTextTitles/textTitle';
+import {ButtonColor, ButtonText} from '../base/buttons/buttonProperties';
+import {
+	UserInvalidData,
+	UserSelector,
+	UserValidData,
+} from '../base/inputDataValues/userInputData';
 
-test.describe('Checks for "Add User" page of trainee website', () => {
-	test.beforeEach(async ({page}) => {
-		await page.goto(URLs.addUserURL);
+let addUserPage: AddUserPage;
+let header: Header;
+let mainPage: MainPage;
+
+test.describe('UI Checks for "Add User" page of trainee website', () => {
+	test.beforeEach(async () => {
+		await driver.driverStart();
+
+		addUserPage = new AddUserPage(driver.page);
+		await addUserPage.goToPage(URLs.addUserURL);
+		await addUserPage.checkPageURL(URLs.addUserURL);
 	});
 
-	test('Check validation messages', async ({page}) => {
-		const createButton = page.getByRole('button', {name: /Create/});
-		await createButton.click();
-
-		const userNameValidationMessage = page.locator(
-			'//span[@id="inputUserName-error"]'
+	test('Display the title', async () => {
+		await expect(addUserPage.titleText()).toHaveText(
+			`${pageTitles.addUser}`
 		);
-		const yearOfBirthValidationMessage = page.locator(
-			'//span[@id="inputYearOfBirth-error"]'
-		);
-
-		await expect(userNameValidationMessage).toHaveText('Name is requried');
-		await expect(yearOfBirthValidationMessage).toHaveText(
-			'Year of Birth is requried'
-		);
-
-		const userNameInput = page.getByPlaceholder('User Name');
-		const yearOfBirthInput = page.getByPlaceholder('Year of Birth');
-
-		await userNameInput.fill('12');
-		await yearOfBirthInput.fill('2005');
-		await userNameInput.press('Enter');
-
-		await expect(userNameValidationMessage).toHaveText('Name is too short');
-		await expect(yearOfBirthValidationMessage).toHaveText(
-			'Not valid Year of Birth is set'
+		await expect(addUserPage.titleText()).toHaveCSS(
+			'color',
+			`${titleProperties.colorBlack}`
 		);
 	});
 
-	test('check button colors', async ({page}) => {
-		const createButton = await page.getByRole('button', {name: /Create/});
-		await expect(createButton).toHaveText('Create');
-		await expect(createButton).toHaveCSS(
+	test('Check button colors', async () => {
+		await expect(addUserPage.createButton()).toHaveText(
+			`${ButtonText.createBtn}`
+		);
+		await expect(addUserPage.createButton()).toHaveCSS(
 			'background-color',
-			'rgb(13, 110, 253)'
+			`${ButtonColor.createBtn}`
 		);
-		const cancelButton = await page.locator(
-			'//a[@data-id="button-Cancel"]'
+
+		await expect(addUserPage.cancelButton()).toHaveText(
+			`${ButtonText.cancelBtn}`
 		);
-		await expect(cancelButton).toHaveText('Cancel');
-		await expect(cancelButton).toHaveCSS(
+		await expect(addUserPage.cancelButton()).toHaveCSS(
 			'background-color',
-			'rgb(108, 117, 125)'
+			`${ButtonColor.cancelBtn}`
 		);
 	});
 
-	test.afterEach(async ({page}) => {
-		page.close();
+	test('Check validation messages with empty fields', async () => {
+		await addUserPage.createButton().click();
+		await expect(addUserPage.userNameValidationMessage()).toHaveText(
+			`${UserValidationMessage.nameEmpty}`
+		);
+		await expect(addUserPage.yearOfBirthValidationMessage()).toHaveText(
+			`${UserValidationMessage.yearEmpty}`
+		);
+	});
+
+	test('Check validation messages after filling the fields with invalid data', async () => {
+		await addUserPage.userNameInput().fill(`${UserInvalidData.nameMIN}`);
+		await addUserPage.yearOfBirthInput().fill(`${UserInvalidData.yearMIN}`);
+		await addUserPage.createButton().press('Enter');
+
+		await expect(addUserPage.userNameValidationMessage()).toHaveText(
+			`${UserValidationMessage.nameShort}`
+		);
+		await expect(addUserPage.yearOfBirthValidationMessage()).toHaveText(
+			`${UserValidationMessage.yearIncorrect}`
+		);
+	});
+
+	test.afterEach(async () => {
+		driver.driverClose();
+	});
+});
+
+test.describe('User functionality on "Add User" page', () => {
+	test.beforeEach(async () => {
+		await driver.driverStart();
+
+		addUserPage = new AddUserPage(driver.page);
+		await addUserPage.goToPage(URLs.addUserURL);
+		await addUserPage.checkPageURL(URLs.addUserURL);
+
+		header = new Header(driver.page);
+		mainPage = new MainPage(driver.page);
+	});
+
+	test('Create User with valid data', async () => {
+		await addUserPage.genderSelector().selectOption(`${UserSelector.male}`);
+		await addUserPage.userNameInput().fill(`${UserValidData.nameMIN}`);
+		await addUserPage.yearOfBirthInput().fill(`${UserValidData.yearMIN}`);
+		await addUserPage.createButton().press('Enter');
+		await header.clickHomeBtn();
+
+		await mainPage.checkPageURL(URLs.homeURL);
+		await mainPage.editNewUserButton(UserValidData.yearMIN).isVisible();
+		await mainPage.deleteNewUserButton(UserValidData.yearMIN).isVisible();
+	});
+
+	test.afterEach(async () => {
+		// add checks for Invisibility of user
+		await mainPage.deleteNewUserButton(UserValidData.yearMIN).click();
+		await mainPage.delYesConfButton().click();
+
+		driver.driverClose();
 	});
 });

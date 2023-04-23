@@ -1,17 +1,39 @@
-import {expect} from '@playwright/test';
-import {URLs} from '../websiteURLs';
-import MainPage from './mainPage';
+import BasePage from './basePage';
 
-class AddAddressPage extends MainPage {
-	constructor(page) {
-		super(page);
-		this.page = page;
+export default class AddAddressPage extends BasePage {
+	public titleText() {
+		return this.page.locator('//h1[text()="Add Address"]');
+	}
+	public streetAddressInput() {
+		return this.page.getByPlaceholder('Street Address');
+	}
+	public cityInput() {
+		return this.page.getByPlaceholder('City');
+	}
+	public stateInput() {
+		return this.page.getByPlaceholder('State');
+	}
+	public zipCodeInput() {
+		return this.page.getByPlaceholder('Zip Code');
 	}
 
-	async goToPage() {
-		await this.page.goto(URLs.addAddressURL);
+	public createButton() {
+		return this.page.getByRole('button', {name: /Create/});
 	}
-	async checkPageURL() {
-		await expect(this.page).toHaveURL(URLs.addAddressURL);
+	public cancelButton() {
+		return this.page.locator('//a[@data-id="button-Cancel"]');
+	}
+
+	public streetAddressValidationMessage() {
+		return this.page.locator('//span[@id="inputStreetAddress-error"]');
+	}
+	public cityValidationMessage() {
+		return this.page.locator('//span[@id="inputCity-error"]');
+	}
+	public stateValidationMessage() {
+		return this.page.locator('//span[@id="inputState-error"]');
+	}
+	public zipCodeValidationMessage() {
+		return this.page.locator('//span[@id="inputZipCode-error"]');
 	}
 }

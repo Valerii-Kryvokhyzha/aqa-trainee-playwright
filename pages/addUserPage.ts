@@ -1,17 +1,33 @@
-import {expect} from '@playwright/test';
-import {URLs} from '../websiteURLs';
-import MainPage from './mainPage';
+import BasePage from './basePage';
 
-class AddUserPage extends MainPage {
-	constructor(page) {
-		super(page);
-		this.page = page;
+export default class AddUserPage extends BasePage {
+	public titleText() {
+		return this.page.locator('//h1[text()="Add User"]');
 	}
 
-	async goToPage() {
-		await this.page.goto(URLs.addUserURL);
+	public createButton() {
+		return this.page.getByRole('button', {name: /Create/});
 	}
-	async checkPageURL() {
-		await expect(this.page).toHaveURL(URLs.addUserURL);
+	public cancelButton() {
+		return this.page.locator('//a[@data-id="button-Cancel"]');
+	}
+
+	public userNameInput() {
+		return this.page.getByPlaceholder('User Name');
+	}
+
+	public userNameValidationMessage() {
+		return this.page.locator('//span[@id="inputUserName-error"]');
+	}
+
+	public yearOfBirthInput() {
+		return this.page.getByPlaceholder('Year of Birth');
+	}
+	public yearOfBirthValidationMessage() {
+		return this.page.locator('//span[@id="inputYearOfBirth-error"]');
+	}
+
+	public genderSelector() {
+		return this.page.locator('//select[@id="selectGender"]');
 	}
 }

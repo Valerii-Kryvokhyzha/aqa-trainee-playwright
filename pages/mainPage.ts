@@ -1,17 +1,40 @@
-import {Page, expect} from '@playwright/test';
-import {URLs} from '../websiteURLs';
+import BasePage from './basePage';
 
-export default class MainPage {
-	protected page: Page;
-
-	constructor(page) {
-		this.page = page;
+export default class MainPage extends BasePage {
+	public titleText() {
+		return this.page.locator('//h1[@class="display-4"]');
 	}
 
-	async goToPage() {
-		await this.page.goto(URLs.homeURL);
+	public usersTableText() {
+		return this.page.locator(
+			'//table[@data-id="table-Users"]/descendant::th[@colspan="5"]'
+		);
 	}
-	async checkPageURL() {
-		await expect(this.page).toHaveURL(URLs.homeURL);
+	public addressesTableText() {
+		return this.page.locator(
+			'//table[@data-id="table-Addresses"]/descendant::th[@colspan="5"]'
+		);
+	}
+
+	public editNewUserButton(year: string) {
+		return this.page.locator(
+			`//td[contains(text(),${year})]/following-sibling::td/a[@data-id="button-Edit"]` //CHECK
+		);
+	}
+
+	public deleteNewUserButton(year: string) {
+		return this.page.locator(
+			`//td[contains(text(),${year})]/following-sibling::td/a[@data-id="button-Delete"]` //CHECK
+		);
+	}
+
+	public delYesConfButton() {
+		return this.page.locator('//button[@data-id="button-Yes"]');
+	}
+
+	public deleteNewAddressButton(code: string) {
+		return this.page.locator(
+			`//td[contains(text(),${code})]/following-sibling::td/a` //CHECK
+		);
 	}
 }
