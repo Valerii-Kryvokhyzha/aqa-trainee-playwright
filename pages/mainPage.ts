@@ -6,25 +6,19 @@ export default class MainPage extends BasePage {
 	}
 
 	public usersTableText() {
-		return this.page.locator(
-			'//table[@data-id="table-Users"]/descendant::th[@colspan="5"]'
-		);
+		return this.page.locator('//th[contains(text(),"USERS")]');
 	}
 	public addressesTableText() {
-		return this.page.locator(
-			'//table[@data-id="table-Addresses"]/descendant::th[@colspan="5"]'
-		);
+		return this.page.locator('//th[contains(text(),"ADDRESSES")]');
 	}
 
-	public editNewUserButton(year: string) {
-		return this.page.locator(
-			`//td[contains(text(),${year})]/following-sibling::td/a[@data-id="button-Edit"]` //CHECK
-		);
+	public editNewUserButton() {
+		return this.page.locator('//tr[last()]/.//a[@data-id="button-Edit"]');
 	}
 
-	public deleteNewUserButton(year: string) {
+	public deleteNewUserButton() {
 		return this.page.locator(
-			`//td[contains(text(),${year})]/following-sibling::td/a[@data-id="button-Delete"]` //CHECK
+			'//tr[last()]/.//a[@data-id="button-Edit"]/following-sibling::a[@data-id="button-Delete"]'
 		);
 	}
 

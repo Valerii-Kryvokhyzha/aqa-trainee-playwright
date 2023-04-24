@@ -102,13 +102,13 @@ test.describe('User functionality on "Add User" page', () => {
 		await header.clickHomeBtn();
 
 		await mainPage.checkPageURL(URLs.homeURL);
-		await mainPage.editNewUserButton(UserValidData.yearMIN).isVisible();
-		await mainPage.deleteNewUserButton(UserValidData.yearMIN).isVisible();
+		await mainPage.editNewUserButton().isVisible();
+		await mainPage.deleteNewUserButton().isVisible();
 	});
 
 	test.afterEach(async () => {
 		// add checks for Invisibility of user
-		await mainPage.deleteNewUserButton(UserValidData.yearMIN).click();
+		await mainPage.deleteNewUserButton().click();
 		await mainPage.delYesConfButton().click();
 
 		driver.driverClose();
