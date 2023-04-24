@@ -2,7 +2,7 @@ import BasePage from './basePage';
 
 export default class MainPage extends BasePage {
 	public titleText() {
-		return this.page.locator('//h1[@class="display-4"]');
+		return this.page.locator('//h1[text()="Users and Addresses"]');
 	}
 
 	public usersTableText() {
@@ -12,23 +12,28 @@ export default class MainPage extends BasePage {
 		return this.page.locator('//th[contains(text(),"ADDRESSES")]');
 	}
 
+	public usersTable() {
+		return this.page.locator('//table[@data-id="table-Users"]/tbody');
+	}
 	public editNewUserButton() {
 		return this.page.locator('//tr[last()]/.//a[@data-id="button-Edit"]');
 	}
-
 	public deleteNewUserButton() {
-		return this.page.locator(
-			'//tr[last()]/.//a[@data-id="button-Edit"]/following-sibling::a[@data-id="button-Delete"]'
+		return this.editNewUserButton().locator(
+			'//following-sibling::a[@data-id="button-Delete"]'
+		);
+	}
+
+	public addressTable() {
+		return this.page.locator('//table[@data-id="table-Addresses"]/tbody');
+	}
+	public deleteNewAddressButton() {
+		return this.addressTable().locator(
+			'//.//tr[last()]/.//a[@data-id="button-Delete"]'
 		);
 	}
 
 	public delYesConfButton() {
 		return this.page.locator('//button[@data-id="button-Yes"]');
-	}
-
-	public deleteNewAddressButton(code: string) {
-		return this.page.locator(
-			`//td[contains(text(),${code})]/following-sibling::td/a` //CHECK
-		);
 	}
 }

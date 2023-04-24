@@ -5,17 +5,15 @@ export default class Driver {
 	public context: BrowserContext;
 	public page: Page;
 
-	async driverStart() {
-		this.browser =
-			await chromium.launch(/* {headless: false, slowMo: 50} */);
+	async start() {
+		this.browser = await chromium.launch();
 		this.context = await this.browser.newContext();
 		this.page = await this.context.newPage();
 	}
 
-	async driverClose() {
+	async close() {
 		this.page.close();
 		this.context.close();
-		this.browser.close();
 	}
 }
 

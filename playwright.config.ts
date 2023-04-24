@@ -25,6 +25,8 @@ export default defineConfig({
 	reporter: 'html',
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
 	use: {
+		actionTimeout: 5 * 1000,
+		navigationTimeout: 10 * 1000,
 		/* Base URL to use in actions like `await page.goto('/')`. */
 		// baseURL: 'http://127.0.0.1:3000',
 
@@ -33,6 +35,7 @@ export default defineConfig({
 		screenshot: 'only-on-failure',
 		// viewport: {width: 1920, height: 1080},
 	},
+	timeout: 0,
 
 	/* Configure projects for major browsers */
 	projects: [
@@ -81,6 +84,4 @@ export default defineConfig({
 	//   url: 'http://127.0.0.1:3000',
 	//   reuseExistingServer: !process.env.CI,
 	// },
-	timeout: 5 * 60 * 1000,
-	globalTimeout: 60 * 60 * 1000,
 });

@@ -6,7 +6,7 @@ export default class AddUserPage extends BasePage {
 	}
 
 	public createButton() {
-		return this.page.getByRole('button', {name: /Create/});
+		return this.page.locator('//button[@data-id="button-Create"]');
 	}
 	public cancelButton() {
 		return this.page.locator('//a[@data-id="button-Cancel"]');
