@@ -2,7 +2,6 @@ import {expect, test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
 import {URLs} from '../base/pageURLs/websiteURLs';
 import AddUserPage from '../pages/addUserPage';
-import Header from '../base/elements/header';
 import MainPage from '../pages/mainPage';
 import {
 	UserSelector,
@@ -11,7 +10,6 @@ import {
 import {tableRows} from '../base/mainPageTableRows/mainPageTableRows';
 
 let addUserPage: AddUserPage;
-let header: Header;
 let mainPage: MainPage;
 
 test.beforeEach(async () => {
@@ -21,7 +19,6 @@ test.beforeEach(async () => {
 	await addUserPage.goToPage(URLs.addUserURL);
 	await addUserPage.checkPageURL(URLs.addUserURL);
 
-	header = new Header(driver.page);
 	mainPage = new MainPage(driver.page);
 });
 
