@@ -9,7 +9,6 @@ import {
 } from '../base/pageTextTitles/textTitle';
 
 let mainPage: MainPage;
-// const mainPage = new MainPage(driver.page); // methods goToPage and checkPageURL don't work - question)
 test.describe('Checks for home page of trainee website', () => {
 	test.beforeEach(async () => {
 		await driver.driverStart();

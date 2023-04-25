@@ -135,7 +135,6 @@ test.describe('Address functionality on "Add Address" page', () => {
 	});
 
 	test.afterEach(async () => {
-		// add checks for Invisibility of address
 		await mainPage
 			.deleteNewAddressButton(AddressValidData.zipCodeMAX)
 			.click();

@@ -107,7 +107,6 @@ test.describe('User functionality on "Add User" page', () => {
 	});
 
 	test.afterEach(async () => {
-		// add checks for Invisibility of user
 		await mainPage.deleteNewUserButton(UserValidData.yearMIN).click();
 		await mainPage.delYesConfButton().click();
 

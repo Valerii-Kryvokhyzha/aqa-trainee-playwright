@@ -18,13 +18,13 @@ export default class MainPage extends BasePage {
 
 	public editNewUserButton(year: string) {
 		return this.page.locator(
-			`//td[contains(text(),${year})]/following-sibling::td/a[@data-id="button-Edit"]` //CHECK
+			`//td[contains(text(),${year})]/following-sibling::td/a[@data-id="button-Edit"]`
 		);
 	}
 
 	public deleteNewUserButton(year: string) {
 		return this.page.locator(
-			`//td[contains(text(),${year})]/following-sibling::td/a[@data-id="button-Delete"]` //CHECK
+			`//td[contains(text(),${year})]/following-sibling::td/a[@data-id="button-Delete"]`
 		);
 	}
 
@@ -34,7 +34,7 @@ export default class MainPage extends BasePage {
 
 	public deleteNewAddressButton(code: string) {
 		return this.page.locator(
-			`//td[contains(text(),${code})]/following-sibling::td/a` //CHECK
+			`//td[contains(text(),${code})]/following-sibling::td/a`
 		);
 	}
 }
