@@ -1,10 +1,11 @@
-import {test} from '@playwright/test';
+import {expect, test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
 import {URLs} from '../base/pageURLs/websiteURLs';
 import AddAddressPage from '../pages/addAddressPage';
 import Header from '../base/elements/header';
 import MainPage from '../pages/mainPage';
 import {AddressValidData} from '../base/inputDataValues/addressInputData';
+import {tableRows} from '../base/mainPageTableRows/mainPageTableRows';
 
 let addAddressPage: AddAddressPage;
 let header: Header;
@@ -34,12 +35,15 @@ test('Create Address with valid data', async () => {
 
 	await mainPage.checkPageURL(URLs.homeURL);
 	await mainPage.deleteNewAddressButton().isVisible();
+
+	await expect(mainPage.addressesTableRow()).toHaveCount(tableRows.addedAcc);
 });
 
 test.afterEach(async () => {
-	// add checks for Invisibility of address
 	await mainPage.deleteNewAddressButton().click();
 	await mainPage.delYesConfButton().click();
+	await expect(mainPage.addedAddressTableRow()).toBeHidden();
+	await expect(mainPage.addressesTableRow()).toHaveCount(tableRows.standard);
 
 	driver.close();
 });

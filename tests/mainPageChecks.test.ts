@@ -27,18 +27,18 @@ test('Display the "Users and Addresses" title', async () => {
 });
 
 test('Display table headers text', async () => {
-	await expect(mainPage.usersTableText()).toHaveText(
+	await expect(mainPage.usersTableHeader()).toHaveText(
 		`${mainPageTableTitles.user}`
 	);
-	await expect(mainPage.usersTableText()).toHaveCSS(
+	await expect(mainPage.usersTableHeader()).toHaveCSS(
 		'color',
 		`${titleProperties.colorBlack}`
 	);
 
-	await expect(mainPage.addressesTableText()).toHaveText(
+	await expect(mainPage.addressesTableHeader()).toHaveText(
 		`${mainPageTableTitles.address}`
 	);
-	await expect(mainPage.addressesTableText()).toHaveCSS(
+	await expect(mainPage.addressesTableHeader()).toHaveCSS(
 		'color',
 		`${titleProperties.colorBlack}`
 	);
