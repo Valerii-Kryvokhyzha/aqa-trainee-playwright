@@ -17,7 +17,7 @@ test.beforeEach(async () => {
 	await addUserPage.checkPageURL(URLs.addUserURL);
 });
 
-test('Display the title', async () => {
+test('Check that title is displayed on "Add User" page', async () => {
 	await expect(addUserPage.titleText()).toHaveText(`${pageTitles.addUser}`);
 	await expect(addUserPage.titleText()).toHaveCSS(
 		'color',
@@ -25,7 +25,7 @@ test('Display the title', async () => {
 	);
 });
 
-test('Check button colors', async () => {
+test('Check action buttons properties in "Add User" form', async () => {
 	await expect(addUserPage.createButton()).toHaveText(
 		`${ButtonText.createBtn}`
 	);
@@ -43,7 +43,7 @@ test('Check button colors', async () => {
 	);
 });
 
-test('Check validation messages with empty fields', async () => {
+test('Check validation messages in "Add User" form with empty fields', async () => {
 	await addUserPage.createButton().click();
 	await expect(addUserPage.userNameValidationMessage()).toHaveText(
 		`${UserValidationMessage.nameEmpty}`
@@ -53,7 +53,7 @@ test('Check validation messages with empty fields', async () => {
 	);
 });
 
-test('Check validation messages after filling the fields with invalid data', async () => {
+test('Check validation messages in "Add User" form with invalid data', async () => {
 	await addUserPage.userNameInput().fill(`${UserInvalidData.nameMIN}`);
 	await addUserPage.yearOfBirthInput().fill(`${UserInvalidData.yearMIN}`);
 	await addUserPage.createButton().press('Enter');

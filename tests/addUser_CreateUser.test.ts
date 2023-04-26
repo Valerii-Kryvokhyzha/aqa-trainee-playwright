@@ -7,7 +7,6 @@ import {
 	UserSelector,
 	UserValidData,
 } from '../base/inputDataValues/userInputData';
-import {tableRows} from '../base/mainPageTableRows/mainPageTableRows';
 
 let addUserPage: AddUserPage;
 let mainPage: MainPage;
@@ -22,23 +21,37 @@ test.beforeEach(async () => {
 	mainPage = new MainPage(driver.page);
 });
 
-test('Create User with valid data', async () => {
+test('Check that new User is created using valid data on "Add User" page', async () => {
 	await addUserPage.genderSelector().selectOption(`${UserSelector.male}`);
 	await addUserPage.userNameInput().fill(`${UserValidData.nameMIN}`);
 	await addUserPage.yearOfBirthInput().fill(`${UserValidData.yearMIN}`);
+
 	await addUserPage.createButton().press('Enter');
 
 	await mainPage.checkPageURL(URLs.homeURL);
-	await mainPage.editNewUserButton().isVisible();
-	await mainPage.deleteNewUserButton().isVisible();
-	await expect(mainPage.usersTableRow()).toHaveCount(tableRows.addedAcc);
+
+	await expect(mainPage.addedUserNameInTable()).toHaveText(
+		UserValidData.nameMIN
+	);
+	await expect(mainPage.addedUserYearInTable()).toHaveText(
+		UserValidData.yearMIN
+	);
+	await expect(mainPage.addedUserGenderInTable()).toHaveText(
+		UserSelector.male
+	);
+
+	await expect(
+		mainPage.checkUserNameInTable(UserValidData.nameMIN)
+	).toBeVisible();
 });
 
 test.afterEach(async () => {
 	await mainPage.deleteNewUserButton().click();
 	await mainPage.delYesConfButton().click();
-	await expect(mainPage.addedUserTableRow()).toBeHidden();
-	await expect(mainPage.usersTableRow()).toHaveCount(tableRows.standard);
+
+	await expect(
+		mainPage.checkUserNameInTable(UserValidData.nameMIN)
+	).toHaveCount(0);
 
 	driver.close();
 });

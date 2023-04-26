@@ -17,7 +17,7 @@ test.beforeEach(async () => {
 	await mainPage.checkPageURL(URLs.homeURL);
 });
 
-test('Display the "Users and Addresses" title', async () => {
+test('Check that "Users and Addresses" title is shown on main page', async () => {
 	await expect(mainPage.titleText()).toHaveText(`${pageTitles.main}`);
 	await expect(mainPage.titleText()).toHaveCSS(
 		'color',
@@ -25,7 +25,7 @@ test('Display the "Users and Addresses" title', async () => {
 	);
 });
 
-test('Display table headers text', async () => {
+test('Check that table headers are displayed on main page', async () => {
 	await expect(mainPage.usersTableHeader()).toHaveText(
 		`${mainPageTableTitles.user}`
 	);

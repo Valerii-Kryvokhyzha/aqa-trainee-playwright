@@ -17,7 +17,7 @@ test.beforeEach(async () => {
 	await addAddressPage.checkPageURL(URLs.addAddressURL);
 });
 
-test('Display the title', async () => {
+test('Check that title is displayed on "Add Address" page', async () => {
 	await expect(addAddressPage.titleText()).toHaveText(
 		`${pageTitles.addAddress}`
 	);
@@ -27,7 +27,7 @@ test('Display the title', async () => {
 	);
 });
 
-test('Check button colors', async () => {
+test('Check action buttons properties in "Add Address" form', async () => {
 	await expect(addAddressPage.createButton()).toHaveText(
 		`${ButtonText.createBtn}`
 	);
@@ -45,7 +45,7 @@ test('Check button colors', async () => {
 	);
 });
 
-test('Check validation messages with empty fields', async () => {
+test('Check validation messages in "Add Address" form with empty fields', async () => {
 	await addAddressPage.createButton().click();
 
 	await expect(addAddressPage.streetAddressValidationMessage()).toHaveText(
@@ -62,7 +62,7 @@ test('Check validation messages with empty fields', async () => {
 	);
 });
 
-test('Check validation messages after filling the fields with invalid data', async () => {
+test('Check validation messages in "Add Address" form with invalid data', async () => {
 	await addAddressPage
 		.streetAddressInput()
 		.fill(`${AddressInvalidData.streetMIN}`);

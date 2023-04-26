@@ -26,7 +26,7 @@ test.beforeEach(async () => {
 	header = new Header(driver.page);
 });
 
-test('Check redirections between the pages', async () => {
+test('Check redirections between the pages of Trainee website', async () => {
 	await expect(header.logoButton()).toBeVisible();
 	await expect(header.logoButton()).toHaveText(HeaderButtonsText.logo);
 
