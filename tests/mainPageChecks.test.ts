@@ -9,42 +9,40 @@ import {
 } from '../base/pageTextTitles/textTitle';
 
 let mainPage: MainPage;
-test.describe('Checks for home page of trainee website', () => {
-	test.beforeEach(async () => {
-		await driver.driverStart();
+test.beforeEach(async () => {
+	await driver.start();
 
-		mainPage = new MainPage(driver.page);
-		await mainPage.goToPage(URLs.homeURL);
-		await mainPage.checkPageURL(URLs.homeURL);
-	});
+	mainPage = new MainPage(driver.page);
+	await mainPage.goToPage(URLs.homeURL);
+	await mainPage.checkPageURL(URLs.homeURL);
+});
 
-	test('Display the "Users and Addresses" title', async () => {
-		await expect(mainPage.titleText()).toHaveText(`${pageTitles.main}`);
-		await expect(mainPage.titleText()).toHaveCSS(
-			'color',
-			`${titleProperties.colorBlack}`
-		);
-	});
+test('Check that "Users and Addresses" title is shown on main page', async () => {
+	await expect(mainPage.titleText()).toHaveText(`${pageTitles.main}`);
+	await expect(mainPage.titleText()).toHaveCSS(
+		'color',
+		`${titleProperties.colorBlack}`
+	);
+});
 
-	test('Display table headers text', async () => {
-		await expect(mainPage.usersTableText()).toHaveText(
-			`${mainPageTableTitles.user}`
-		);
-		await expect(mainPage.usersTableText()).toHaveCSS(
-			'color',
-			`${titleProperties.colorBlack}`
-		);
+test('Check that table headers are displayed on main page', async () => {
+	await expect(mainPage.usersTableHeader()).toHaveText(
+		`${mainPageTableTitles.user}`
+	);
+	await expect(mainPage.usersTableHeader()).toHaveCSS(
+		'color',
+		`${titleProperties.colorBlack}`
+	);
 
-		await expect(mainPage.addressesTableText()).toHaveText(
-			`${mainPageTableTitles.address}`
-		);
-		await expect(mainPage.addressesTableText()).toHaveCSS(
-			'color',
-			`${titleProperties.colorBlack}`
-		);
-	});
+	await expect(mainPage.addressesTableHeader()).toHaveText(
+		`${mainPageTableTitles.address}`
+	);
+	await expect(mainPage.addressesTableHeader()).toHaveCSS(
+		'color',
+		`${titleProperties.colorBlack}`
+	);
+});
 
-	test.afterEach(async () => {
-		driver.driverClose();
-	});
+test.afterEach(async () => {
+	driver.close();
 });

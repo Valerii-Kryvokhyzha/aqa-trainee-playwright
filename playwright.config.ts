@@ -22,16 +22,22 @@ export default defineConfig({
 	/* Opt out of parallel tests on CI. */
 	workers: process.env.CI ? 1 : undefined,
 	/* Reporter to use. See https://playwright.dev/docs/test-reporters */
-	reporter: 'html',
+	reporter: 'list',
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
 	use: {
+		actionTimeout: 5 * 1000,
+		// Trainee Website can take a very long time to load on first launch:
+		navigationTimeout: 15 * 1000,
 		/* Base URL to use in actions like `await page.goto('/')`. */
 		// baseURL: 'http://127.0.0.1:3000',
 
 		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-		trace: 'on-first-retry',
-		screenshot: 'only-on-failure',
-		// viewport: {width: 1920, height: 1080},
+		trace: 'on',
+		screenshot: 'on',
+	},
+	timeout: 0,
+	expect: {
+		timeout: 5 * 1000,
 	},
 
 	/* Configure projects for major browsers */
