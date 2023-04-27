@@ -14,10 +14,6 @@ export default class MainPage extends BasePage {
 	public usersTableRow() {
 		return this.usersTable().locator('//tr');
 	}
-	public countUserTableRows() {
-		return this.usersTableRow().count();
-	}
-
 	public addedUserNameInTable() {
 		return this.page.locator('//tr[last()]/td[@data-id="td-UserName"]');
 	}
@@ -48,9 +44,6 @@ export default class MainPage extends BasePage {
 	}
 	public addressesTableRow() {
 		return this.addressTable().locator('//tr');
-	}
-	public countAddressesTableRows() {
-		return this.usersTableRow().count();
 	}
 
 	public addedAddressStreetInTable() {
