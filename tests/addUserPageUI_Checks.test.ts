@@ -46,7 +46,7 @@ test('Check action buttons properties in "Add User" form', async () => {
 test('Check validation messages in "Add User" form with empty fields', async () => {
 	await addUserPage.createButton().click();
 	await expect(addUserPage.userNameValidationMessage()).toHaveText(
-		`${UserValidationMessage.nameEmpty}`
+		`${UserValidationMessage.nameShort}`
 	);
 	await expect(addUserPage.yearOfBirthValidationMessage()).toHaveText(
 		`${UserValidationMessage.yearEmpty}`
