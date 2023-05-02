@@ -1,12 +1,12 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
 import {URLs} from '../base/pageURLs/websiteURLs';
-import {
-	UserSelector,
-	UserValidData,
-} from '../base/inputDataValues/userInputData';
 import UserSteps from '../steps/userSteps';
-import MainPageSteps from '../steps/MainPageSteps';
+import MainPageSteps from '../steps/mainPageSteps';
+import {
+	UserValidData,
+	UserSelector,
+} from '../base/inputDataValues/userInputData';
 
 // import {userSteps} from '../steps/userSteps';
 

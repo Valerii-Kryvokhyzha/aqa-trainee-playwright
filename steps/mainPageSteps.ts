@@ -1,18 +1,17 @@
 import {expect} from '@playwright/test';
 import {driver} from '../base/driver/driver';
 import MainPage from '../pages/mainPage';
-import BaseSteps from './basePageSteps';
+import BasePageSteps from './basePageSteps';
 
 let mainPage: MainPage;
 
-export default class MainPageSteps extends BaseSteps {
+export default class MainPageSteps extends BasePageSteps {
 	public async checkThatUserWithValidDataIsAddedToUsersTableOnMainPage(
 		gender: string,
 		userName: string,
 		year: string
 	) {
 		mainPage = new MainPage(driver.page); // !!!
-
 		await expect(mainPage.addedUserGenderInTable()).toHaveText(gender);
 		await expect(mainPage.addedUserNameInTable()).toHaveText(userName);
 		await expect(mainPage.addedUserYearInTable()).toHaveText(year);
@@ -40,7 +39,6 @@ export default class MainPageSteps extends BaseSteps {
 		zipCode: string
 	) {
 		mainPage = new MainPage(driver.page); // !!!
-
 		await expect(mainPage.addedAddressStreetInTable()).toHaveText(street);
 		await expect(mainPage.addedAddressCityInTable()).toHaveText(city);
 		await expect(mainPage.addedAddressStateInTable()).toHaveText(state);
@@ -68,7 +66,6 @@ export default class MainPageSteps extends BaseSteps {
 
 	public async checkThatMainPageTitleHasText(text: string) {
 		mainPage = new MainPage(driver.page); // !!!
-
 		await expect(mainPage.titleText()).toHaveText(`${text}`);
 	}
 	public async checkThatMainPageTitleHasTextColor(textColor: string) {
@@ -80,7 +77,6 @@ export default class MainPageSteps extends BaseSteps {
 		color: string
 	) {
 		mainPage = new MainPage(driver.page); // !!!
-
 		await expect(mainPage.usersTableHeader()).toHaveText(`${text}`);
 		await expect(mainPage.usersTableHeader()).toHaveCSS(
 			'color',

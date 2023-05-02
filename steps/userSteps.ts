@@ -11,7 +11,6 @@ export default class UserSteps extends BasePageSteps {
 		year: string
 	) {
 		addUserPage = new AddUserPage(driver.page); // !!!
-
 		await addUserPage.userNameInput().fill(userName);
 		await addUserPage.yearOfBirthInput().fill(year);
 	}
@@ -20,18 +19,15 @@ export default class UserSteps extends BasePageSteps {
 		selectorValue: string
 	) {
 		addUserPage = new AddUserPage(driver.page); // !!!
-
 		await addUserPage.genderSelector().selectOption(selectorValue);
 	}
 	public async clickCreateButtonInAddUserForm() {
 		addUserPage = new AddUserPage(driver.page); // !!!
-
 		await addUserPage.createButton().click();
 	}
 
 	public async checkThatUserPageTitleHasText(text: string) {
 		addUserPage = new AddUserPage(driver.page); // !!!
-
 		await expect(addUserPage.titleText()).toHaveText(`${text}`);
 	}
 	public async checkThatUserPageTitleHasTextColor(textColor: string) {
@@ -46,7 +42,6 @@ export default class UserSteps extends BasePageSteps {
 		backgroundColor: string
 	) {
 		addUserPage = new AddUserPage(driver.page); // !!!
-
 		await expect(addUserPage.createButton()).toHaveText(`${text}`);
 		await expect(addUserPage.createButton()).toHaveCSS(
 			'background-color',

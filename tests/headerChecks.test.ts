@@ -4,7 +4,7 @@ import {URLs} from '../base/pageURLs/websiteURLs';
 import {pageTitles} from '../base/pageTextTitles/textTitle';
 import {HeaderButtonsText} from '../base/buttons/buttonProperties';
 import HeaderSteps from '../steps/headerSteps';
-import MainPageSteps from '../steps/MainPageSteps';
+import MainPageSteps from '../steps/mainPageSteps';
 import UserSteps from '../steps/userSteps';
 import AddressSteps from '../steps/addressSteps';
 

@@ -1,11 +1,11 @@
 import {expect} from '@playwright/test';
 import {driver} from '../base/driver/driver';
 import Header from '../base/elements/header';
-import BaseSteps from './basePageSteps';
+import BasePageSteps from './basePageSteps';
 
 let header: Header;
 
-export default class HeaderSteps extends BaseSteps {
+export default class HeaderSteps extends BasePageSteps {
 	public async checkThatHeaderButtonsHaveText(
 		logoText: string,
 		homeText: string,
@@ -13,7 +13,6 @@ export default class HeaderSteps extends BaseSteps {
 		addressText: string
 	) {
 		header = new Header(driver.page); // !!!
-
 		await expect(header.logoButton()).toBeVisible();
 		await expect(header.homeButton()).toBeVisible();
 		await expect(header.addUserButton()).toBeVisible();

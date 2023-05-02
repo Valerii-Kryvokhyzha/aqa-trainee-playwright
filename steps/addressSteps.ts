@@ -13,7 +13,6 @@ export default class AddressSteps extends BasePageSteps {
 		zipCode: string
 	) {
 		addAddressPage = new AddAddressPage(driver.page); // !!!
-
 		await addAddressPage.streetAddressInput().fill(street);
 		await addAddressPage.cityInput().fill(city);
 		await addAddressPage.stateInput().fill(state);
@@ -41,7 +40,6 @@ export default class AddressSteps extends BasePageSteps {
 		backgroundColor: string
 	) {
 		addAddressPage = new AddAddressPage(driver.page); // !!!
-
 		await expect(addAddressPage.createButton()).toHaveText(`${text}`);
 		await expect(addAddressPage.createButton()).toHaveCSS(
 			'background-color',

@@ -1,7 +1,7 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
 import {URLs} from '../base/pageURLs/websiteURLs';
-import MainPageSteps from '../steps/MainPageSteps';
+import MainPageSteps from '../steps/mainPageSteps';
 import {
 	pageTitles,
 	mainPageTableTitles,

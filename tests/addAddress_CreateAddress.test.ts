@@ -2,7 +2,7 @@ import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
 import {URLs} from '../base/pageURLs/websiteURLs';
 import AddressSteps from '../steps/addressSteps';
-import MainPageSteps from '../steps/MainPageSteps';
+import MainPageSteps from '../steps/mainPageSteps';
 import {AddressValidData} from '../base/inputDataValues/addressInputData';
 
 let addressSteps: AddressSteps;
