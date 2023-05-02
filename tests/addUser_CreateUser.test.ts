@@ -1,57 +1,54 @@
-import {expect, test} from '@playwright/test';
+import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
 import {URLs} from '../base/pageURLs/websiteURLs';
-import AddUserPage from '../pages/addUserPage';
-import MainPage from '../pages/mainPage';
 import {
 	UserSelector,
 	UserValidData,
 } from '../base/inputDataValues/userInputData';
+import UserSteps from '../steps/userSteps';
+import MainPageSteps from '../steps/MainPageSteps';
 
-let addUserPage: AddUserPage;
-let mainPage: MainPage;
+// import {userSteps} from '../steps/userSteps';
+
+let userSteps: UserSteps;
+let mainPageSteps: MainPageSteps;
 
 test.beforeEach(async () => {
 	await driver.start();
 
-	addUserPage = new AddUserPage(driver.page);
-	await addUserPage.goToPage(URLs.addUserURL);
-	await addUserPage.checkPageURL(URLs.addUserURL);
+	userSteps = new UserSteps(driver.page);
+	mainPageSteps = new MainPageSteps(driver.page);
 
-	mainPage = new MainPage(driver.page);
+	await userSteps.goToPage(URLs.addUserURL);
+	await userSteps.checkPageURL(URLs.addUserURL);
 });
 
 test('Check that new User is created using valid data on "Add User" page', async () => {
-	await addUserPage.genderSelector().selectOption(`${UserSelector.male}`);
-	await addUserPage.userNameInput().fill(`${UserValidData.nameMIN}`);
-	await addUserPage.yearOfBirthInput().fill(`${UserValidData.yearMIN}`);
-
-	await addUserPage.createButton().press('Enter');
-
-	await mainPage.checkPageURL(URLs.homeURL);
-
-	await expect(mainPage.addedUserNameInTable()).toHaveText(
-		UserValidData.nameMIN
-	);
-	await expect(mainPage.addedUserYearInTable()).toHaveText(
-		UserValidData.yearMIN
-	);
-	await expect(mainPage.addedUserGenderInTable()).toHaveText(
+	await userSteps.selectValueFromGenderDropdownInAddUserForm(
 		UserSelector.male
 	);
+	await userSteps.fillAllTextFieldsWithDataInAddUserForm(
+		UserValidData.nameMIN,
+		UserValidData.yearMIN
+	);
+	await userSteps.clickCreateButtonInAddUserForm();
+	await mainPageSteps.checkPageURL(URLs.homeURL);
 
-	await expect(
-		mainPage.checkUserNameInTable(UserValidData.nameMIN)
-	).toBeVisible();
+	await mainPageSteps.checkThatUserWithValidDataIsAddedToUsersTableOnMainPage(
+		UserSelector.male,
+		UserValidData.nameMIN,
+		UserValidData.yearMIN
+	);
 });
 
 test.afterEach(async () => {
-	await mainPage.deleteNewUserButton().click();
-	await mainPage.delYesConfButton().click();
+	await mainPageSteps.deleteAddedUserFromUsersTableOnMainPage();
 
-	await expect(
-		mainPage.checkUserNameInTable(UserValidData.nameMIN)
-	).toHaveCount(0);
+	await mainPageSteps.checkThatUserIsDeletedFromUsersTableOnMainPage(
+		UserSelector.male,
+		UserValidData.nameMIN,
+		UserValidData.yearMIN
+	);
 
 	driver.close();
 });

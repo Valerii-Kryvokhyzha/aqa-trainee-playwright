@@ -15,17 +15,4 @@ export default class Header extends BaseHeader {
 			name: /Add Address/,
 		});
 	}
-
-	public async clickLogoBtn() {
-		await this.logoButton().click();
-	}
-	public async clickHomeBtn() {
-		await this.homeButton().click();
-	}
-	public async clickAddUserBtn() {
-		await this.addUserButton().click();
-	}
-	public async clickAddAddressBtn() {
-		await this.addAddressButton().click();
-	}
 }

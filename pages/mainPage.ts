@@ -5,26 +5,33 @@ export default class MainPage extends BasePage {
 		return this.page.locator('//h1[text()="Users and Addresses"]');
 	}
 
-	public usersTableHeader() {
-		return this.page.locator('//th[contains(text(),"USERS")]');
-	}
 	public usersTable() {
-		return this.page.locator('//table[@data-id="table-Users"]/tbody');
+		return this.page.locator('//table[@data-id="table-Users"]');
 	}
-	public usersTableRow() {
-		return this.usersTable().locator('//tr');
+	public usersTableHeader() {
+		return this.usersTable().locator('//th[@colspan="5"]');
+	}
+
+	public addedUserGenderInTable() {
+		return this.page.locator('//tr[last()]/td[@data-id="td-Gender"]');
 	}
 	public addedUserNameInTable() {
 		return this.page.locator('//tr[last()]/td[@data-id="td-UserName"]');
 	}
-	public checkUserNameInTable(name: string) {
-		return this.page.locator(`//tr[last()]/td[contains(text(),"${name}")]`);
-	}
 	public addedUserYearInTable() {
 		return this.page.locator('//tr[last()]/td[@data-id="td-YearOfBirth"]');
 	}
-	public addedUserGenderInTable() {
-		return this.page.locator('//tr[last()]/td[@data-id="td-Gender"]');
+
+	public checkUserGenderInTable(gender: string) {
+		return this.page.locator(
+			`//tr[last()]/td[contains(text(),"${gender}")]`
+		);
+	}
+	public checkUserNameInTable(name: string) {
+		return this.page.locator(`//tr[last()]/td[contains(text(),"${name}")]`);
+	}
+	public checkUserYearInTable(year: string) {
+		return this.page.locator(`//tr[last()]/td[contains(text(),"${year}")]`);
 	}
 
 	public editNewUserButton() {
@@ -36,24 +43,16 @@ export default class MainPage extends BasePage {
 		);
 	}
 
-	public addressesTableHeader() {
-		return this.page.locator('//th[contains(text(),"ADDRESSES")]');
-	}
 	public addressTable() {
-		return this.page.locator('//table[@data-id="table-Addresses"]/tbody');
+		return this.page.locator('//table[@data-id="table-Addresses"]');
 	}
-	public addressesTableRow() {
-		return this.addressTable().locator('//tr');
+	public addressesTableHeader() {
+		return this.addressTable().locator('//th[@colspan="5"]');
 	}
 
 	public addedAddressStreetInTable() {
 		return this.page.locator(
 			'//tr[last()]/td[@data-id="td-StreetAddress"]'
-		);
-	}
-	public checkAddressSteetInTable(street: string) {
-		return this.page.locator(
-			`//tr[last()]/td[contains(text(),"${street}")]`
 		);
 	}
 	public addedAddressCityInTable() {
@@ -64,6 +63,25 @@ export default class MainPage extends BasePage {
 	}
 	public addedAddressZipCodeInTable() {
 		return this.page.locator('//tr[last()]/td[@data-id="td-ZipCode"]');
+	}
+
+	public checkAddressSteetInTable(street: string) {
+		return this.page.locator(
+			`//tr[last()]/td[contains(text(),"${street}")]`
+		);
+	}
+	public checkAddressCityInTable(city: string) {
+		return this.page.locator(`//tr[last()]/td[contains(text(),"${city}")]`);
+	}
+	public checkAddressStateInTable(state: string) {
+		return this.page.locator(
+			`//tr[last()]/td[contains(text(),"${state}")]`
+		);
+	}
+	public checkAddressZipCodeInTable(zipCode: string) {
+		return this.page.locator(
+			`//tr[last()]/td[contains(text(),"${zipCode}")]`
+		);
 	}
 
 	public deleteNewAddressButton() {
