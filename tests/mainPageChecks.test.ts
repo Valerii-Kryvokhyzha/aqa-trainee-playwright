@@ -7,15 +7,18 @@ import {
 	mainPageTableTitles,
 	titleProperties,
 } from '../base/pageTextTitles/textTitle';
+import BasePageSteps from '../steps/basePageSteps';
 
 let mainPageSteps: MainPageSteps;
+let basePageSteps: BasePageSteps;
 
 test.beforeEach(async () => {
 	await driver.start();
 
-	mainPageSteps = new MainPageSteps(driver.page);
-	await mainPageSteps.goToPage(URLs.homeURL);
-	await mainPageSteps.checkPageURL(URLs.homeURL);
+	mainPageSteps = new MainPageSteps();
+	basePageSteps = new BasePageSteps(driver.page);
+	await basePageSteps.goToPage(URLs.homeURL);
+	await basePageSteps.checkPageURL(URLs.homeURL);
 });
 
 test('Check that "Users and Addresses" title is shown on main page', async () => {

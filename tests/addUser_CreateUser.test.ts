@@ -7,20 +7,21 @@ import {
 	UserValidData,
 	UserSelector,
 } from '../base/inputDataValues/userInputData';
-
-// import {userSteps} from '../steps/userSteps';
+import BasePageSteps from '../steps/basePageSteps';
 
 let userSteps: UserSteps;
 let mainPageSteps: MainPageSteps;
+let basePageSteps: BasePageSteps;
 
 test.beforeEach(async () => {
 	await driver.start();
 
-	userSteps = new UserSteps(driver.page);
-	mainPageSteps = new MainPageSteps(driver.page);
+	userSteps = new UserSteps();
+	mainPageSteps = new MainPageSteps();
+	basePageSteps = new BasePageSteps(driver.page);
 
-	await userSteps.goToPage(URLs.addUserURL);
-	await userSteps.checkPageURL(URLs.addUserURL);
+	await basePageSteps.goToPage(URLs.addUserURL);
+	await basePageSteps.checkPageURL(URLs.addUserURL);
 });
 
 test('Check that new User is created using valid data on "Add User" page', async () => {
@@ -32,7 +33,7 @@ test('Check that new User is created using valid data on "Add User" page', async
 		UserValidData.yearMIN
 	);
 	await userSteps.clickCreateButtonInAddUserForm();
-	await mainPageSteps.checkPageURL(URLs.homeURL);
+	await basePageSteps.checkPageURL(URLs.homeURL);
 
 	await mainPageSteps.checkThatUserWithValidDataIsAddedToUsersTableOnMainPage(
 		UserSelector.male,

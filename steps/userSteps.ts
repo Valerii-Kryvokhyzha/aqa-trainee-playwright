@@ -1,37 +1,37 @@
 import {expect} from '@playwright/test';
 import {driver} from '../base/driver/driver';
 import AddUserPage from '../pages/addUserPage';
-import BasePageSteps from './basePageSteps';
 
-let addUserPage: AddUserPage;
+export default class UserSteps {
+	public addUserPage: AddUserPage;
 
-export default class UserSteps extends BasePageSteps {
+	constructor() {
+		this.addUserPage = new AddUserPage(driver.page);
+	}
+
 	public async fillAllTextFieldsWithDataInAddUserForm(
 		userName: string,
 		year: string
 	) {
-		addUserPage = new AddUserPage(driver.page); // !!!
-		await addUserPage.userNameInput().fill(userName);
-		await addUserPage.yearOfBirthInput().fill(year);
+		await this.addUserPage.userNameInput().fill(userName);
+		await this.addUserPage.yearOfBirthInput().fill(year);
 	}
 
 	public async selectValueFromGenderDropdownInAddUserForm(
 		selectorValue: string
 	) {
-		addUserPage = new AddUserPage(driver.page); // !!!
-		await addUserPage.genderSelector().selectOption(selectorValue);
+		await this.addUserPage.genderSelector().selectOption(selectorValue);
 	}
+
 	public async clickCreateButtonInAddUserForm() {
-		addUserPage = new AddUserPage(driver.page); // !!!
-		await addUserPage.createButton().click();
+		await this.addUserPage.createButton().click();
 	}
 
 	public async checkThatUserPageTitleHasText(text: string) {
-		addUserPage = new AddUserPage(driver.page); // !!!
-		await expect(addUserPage.titleText()).toHaveText(`${text}`);
+		await expect(this.addUserPage.titleText()).toHaveText(`${text}`);
 	}
 	public async checkThatUserPageTitleHasTextColor(textColor: string) {
-		await expect(addUserPage.titleText()).toHaveCSS(
+		await expect(this.addUserPage.titleText()).toHaveCSS(
 			'color',
 			`${textColor}`
 		);
@@ -41,9 +41,8 @@ export default class UserSteps extends BasePageSteps {
 		text: string,
 		backgroundColor: string
 	) {
-		addUserPage = new AddUserPage(driver.page); // !!!
-		await expect(addUserPage.createButton()).toHaveText(`${text}`);
-		await expect(addUserPage.createButton()).toHaveCSS(
+		await expect(this.addUserPage.createButton()).toHaveText(`${text}`);
+		await expect(this.addUserPage.createButton()).toHaveCSS(
 			'background-color',
 			`${backgroundColor}`
 		);
@@ -53,8 +52,8 @@ export default class UserSteps extends BasePageSteps {
 		text: string,
 		backgroundColor: string
 	) {
-		await expect(addUserPage.cancelButton()).toHaveText(`${text}`);
-		await expect(addUserPage.cancelButton()).toHaveCSS(
+		await expect(this.addUserPage.cancelButton()).toHaveText(`${text}`);
+		await expect(this.addUserPage.cancelButton()).toHaveCSS(
 			'background-color',
 			`${backgroundColor}`
 		);
@@ -64,14 +63,11 @@ export default class UserSteps extends BasePageSteps {
 		nameValidationMessage: string,
 		yearValidationMessage: string
 	) {
-		await expect(addUserPage.userNameValidationMessage()).toHaveText(
+		await expect(this.addUserPage.userNameValidationMessage()).toHaveText(
 			`${nameValidationMessage}`
 		);
-		await expect(addUserPage.yearOfBirthValidationMessage()).toHaveText(
-			`${yearValidationMessage}`
-		);
+		await expect(
+			this.addUserPage.yearOfBirthValidationMessage()
+		).toHaveText(`${yearValidationMessage}`);
 	}
 }
-
-const userSteps = new UserSteps(driver.page);
-export {userSteps};

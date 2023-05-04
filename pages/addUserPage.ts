@@ -15,7 +15,6 @@ export default class AddUserPage extends BasePage {
 	public userNameInput() {
 		return this.page.getByPlaceholder('User Name');
 	}
-
 	public userNameValidationMessage() {
 		return this.page.locator('//span[@id="inputUserName-error"]');
 	}

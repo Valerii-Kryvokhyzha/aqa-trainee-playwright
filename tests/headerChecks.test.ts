@@ -7,22 +7,25 @@ import HeaderSteps from '../steps/headerSteps';
 import MainPageSteps from '../steps/mainPageSteps';
 import UserSteps from '../steps/userSteps';
 import AddressSteps from '../steps/addressSteps';
+import BasePageSteps from '../steps/basePageSteps';
 
 let headerSteps: HeaderSteps;
 let mainPageSteps: MainPageSteps;
 let userSteps: UserSteps;
 let addressSteps: AddressSteps;
+let basePageSteps: BasePageSteps;
 
 test.beforeEach(async () => {
 	await driver.start();
 
-	headerSteps = new HeaderSteps(driver.page);
-	mainPageSteps = new MainPageSteps(driver.page);
-	userSteps = new UserSteps(driver.page);
-	addressSteps = new AddressSteps(driver.page);
+	headerSteps = new HeaderSteps();
+	mainPageSteps = new MainPageSteps();
+	userSteps = new UserSteps();
+	addressSteps = new AddressSteps();
+	basePageSteps = new BasePageSteps(driver.page);
 
-	await mainPageSteps.goToPage(URLs.homeURL);
-	await mainPageSteps.checkPageURL(URLs.homeURL);
+	await basePageSteps.goToPage(URLs.homeURL);
+	await basePageSteps.checkPageURL(URLs.homeURL);
 });
 
 test('Check redirections between the pages of Trainee website', async () => {
@@ -34,19 +37,19 @@ test('Check redirections between the pages of Trainee website', async () => {
 	);
 
 	await headerSteps.clickAddUserButton();
-	await userSteps.checkPageURL(URLs.addUserURL);
+	await basePageSteps.checkPageURL(URLs.addUserURL);
 	await userSteps.checkThatUserPageTitleHasText(pageTitles.addUser);
 
 	await headerSteps.clickLogoButton();
-	await mainPageSteps.checkPageURL(URLs.homeURL);
+	await basePageSteps.checkPageURL(URLs.homeURL);
 	await mainPageSteps.checkThatMainPageTitleHasText(pageTitles.main);
 
 	await headerSteps.clickAddAddressButton();
-	await addressSteps.checkPageURL(URLs.addAddressURL);
+	await basePageSteps.checkPageURL(URLs.addAddressURL);
 	await addressSteps.checkThatAddressPageTitleHasText(pageTitles.addAddress);
 
 	await headerSteps.clickHomeButton();
-	await mainPageSteps.checkPageURL(URLs.homeURL);
+	await basePageSteps.checkPageURL(URLs.homeURL);
 	await mainPageSteps.checkThatMainPageTitleHasText(pageTitles.main);
 });
 

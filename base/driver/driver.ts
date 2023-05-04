@@ -12,8 +12,8 @@ export default class Driver {
 	}
 
 	async close() {
-		this.page.close();
-		this.context.close();
+		await this.page.close();
+		await this.context.close();
 	}
 }
 

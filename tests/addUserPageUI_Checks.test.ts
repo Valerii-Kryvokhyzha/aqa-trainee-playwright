@@ -6,15 +6,19 @@ import {pageTitles, titleProperties} from '../base/pageTextTitles/textTitle';
 import {ButtonColor, ButtonText} from '../base/buttons/buttonProperties';
 import {UserInvalidData} from '../base/inputDataValues/userInputData';
 import UserSteps from '../steps/userSteps';
+import BasePageSteps from '../steps/basePageSteps';
 
 let userSteps: UserSteps;
+let basePageSteps: BasePageSteps;
 
 test.beforeEach(async () => {
 	await driver.start();
 
-	userSteps = new UserSteps(driver.page);
-	await userSteps.goToPage(URLs.addUserURL);
-	await userSteps.checkPageURL(URLs.addUserURL);
+	userSteps = new UserSteps();
+	basePageSteps = new BasePageSteps(driver.page);
+
+	await basePageSteps.goToPage(URLs.addUserURL);
+	await basePageSteps.checkPageURL(URLs.addUserURL);
 });
 
 test('Check title properties on "Add User" page', async () => {

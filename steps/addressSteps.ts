@@ -1,35 +1,35 @@
 import {expect} from '@playwright/test';
 import {driver} from '../base/driver/driver';
 import AddAddressPage from '../pages/addAddressPage';
-import BasePageSteps from './basePageSteps';
 
-let addAddressPage: AddAddressPage;
+export default class AddressSteps {
+	public addAddressPage: AddAddressPage;
 
-export default class AddressSteps extends BasePageSteps {
+	constructor() {
+		this.addAddressPage = new AddAddressPage(driver.page);
+	}
+
 	public async fillAllTextFieldsWithDataInAddAddressForm(
 		street: string,
 		city: string,
 		state: string,
 		zipCode: string
 	) {
-		addAddressPage = new AddAddressPage(driver.page); // !!!
-		await addAddressPage.streetAddressInput().fill(street);
-		await addAddressPage.cityInput().fill(city);
-		await addAddressPage.stateInput().fill(state);
-		await addAddressPage.zipCodeInput().fill(zipCode);
+		await this.addAddressPage.streetAddressInput().fill(street);
+		await this.addAddressPage.cityInput().fill(city);
+		await this.addAddressPage.stateInput().fill(state);
+		await this.addAddressPage.zipCodeInput().fill(zipCode);
 	}
 
 	public async clickCreateButtonInAddAddressForm() {
-		addAddressPage = new AddAddressPage(driver.page); // !!!
-		await addAddressPage.createButton().click();
+		await this.addAddressPage.createButton().click();
 	}
 
 	public async checkThatAddressPageTitleHasText(text: string) {
-		addAddressPage = new AddAddressPage(driver.page); // !!!
-		await expect(addAddressPage.titleText()).toHaveText(`${text}`);
+		await expect(this.addAddressPage.titleText()).toHaveText(`${text}`);
 	}
 	public async checkThatAddressPageTitleHasTextColor(textColor: string) {
-		await expect(addAddressPage.titleText()).toHaveCSS(
+		await expect(this.addAddressPage.titleText()).toHaveCSS(
 			'color',
 			`${textColor}`
 		);
@@ -39,9 +39,8 @@ export default class AddressSteps extends BasePageSteps {
 		text: string,
 		backgroundColor: string
 	) {
-		addAddressPage = new AddAddressPage(driver.page); // !!!
-		await expect(addAddressPage.createButton()).toHaveText(`${text}`);
-		await expect(addAddressPage.createButton()).toHaveCSS(
+		await expect(this.addAddressPage.createButton()).toHaveText(`${text}`);
+		await expect(this.addAddressPage.createButton()).toHaveCSS(
 			'background-color',
 			`${backgroundColor}`
 		);
@@ -51,8 +50,8 @@ export default class AddressSteps extends BasePageSteps {
 		text: string,
 		backgroundColor: string
 	) {
-		await expect(addAddressPage.cancelButton()).toHaveText(`${text}`);
-		await expect(addAddressPage.cancelButton()).toHaveCSS(
+		await expect(this.addAddressPage.cancelButton()).toHaveText(`${text}`);
+		await expect(this.addAddressPage.cancelButton()).toHaveCSS(
 			'background-color',
 			`${backgroundColor}`
 		);
@@ -65,15 +64,15 @@ export default class AddressSteps extends BasePageSteps {
 		zipCodeValidationMessage: string
 	) {
 		await expect(
-			addAddressPage.streetAddressValidationMessage()
+			this.addAddressPage.streetAddressValidationMessage()
 		).toHaveText(`${streetValidationMessage}`);
-		await expect(addAddressPage.cityValidationMessage()).toHaveText(
+		await expect(this.addAddressPage.cityValidationMessage()).toHaveText(
 			`${cityValidationMessage}`
 		);
-		await expect(addAddressPage.stateValidationMessage()).toHaveText(
+		await expect(this.addAddressPage.stateValidationMessage()).toHaveText(
 			`${stateValidationMessage}`
 		);
-		await expect(addAddressPage.zipCodeValidationMessage()).toHaveText(
+		await expect(this.addAddressPage.zipCodeValidationMessage()).toHaveText(
 			`${zipCodeValidationMessage}`
 		);
 	}

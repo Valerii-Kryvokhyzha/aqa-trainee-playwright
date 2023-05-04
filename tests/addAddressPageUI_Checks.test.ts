@@ -6,15 +6,19 @@ import {AddressValidationMessage} from '../base/validationMessages/addressValida
 import {pageTitles, titleProperties} from '../base/pageTextTitles/textTitle';
 import {ButtonColor, ButtonText} from '../base/buttons/buttonProperties';
 import {AddressInvalidData} from '../base/inputDataValues/addressInputData';
+import BasePageSteps from '../steps/basePageSteps';
 
 let addressSteps: AddressSteps;
+let basePageSteps: BasePageSteps;
 
 test.beforeEach(async () => {
 	await driver.start();
 
-	addressSteps = new AddressSteps(driver.page);
-	await addressSteps.goToPage(URLs.addAddressURL);
-	await addressSteps.checkPageURL(URLs.addAddressURL);
+	addressSteps = new AddressSteps();
+	basePageSteps = new BasePageSteps(driver.page);
+
+	await basePageSteps.goToPage(URLs.addAddressURL);
+	await basePageSteps.checkPageURL(URLs.addAddressURL);
 });
 
 test('Check title properties on "Add Address" page', async () => {

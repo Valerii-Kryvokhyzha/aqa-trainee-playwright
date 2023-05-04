@@ -4,6 +4,7 @@ export default class AddAddressPage extends BasePage {
 	public titleText() {
 		return this.page.locator('//h1[text()="Add Address"]');
 	}
+
 	public streetAddressInput() {
 		return this.page.getByPlaceholder('Street Address');
 	}
