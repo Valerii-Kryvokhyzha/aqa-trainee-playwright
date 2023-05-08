@@ -1,12 +1,15 @@
 import {expect} from '@playwright/test';
 import {driver} from '../base/driver/driver';
 import MainPage from '../pages/mainPage';
+import DeletePage from '../pages/deleteConfirmationPage';
 
 export default class MainPageSteps {
 	public mainPage: MainPage;
+	public deletePage: DeletePage;
 
 	constructor() {
 		this.mainPage = new MainPage(driver.page);
+		this.deletePage = new DeletePage(driver.page);
 	}
 
 	public async checkThatUserWithValidDataIsAddedToUsersTableOnMainPage(
@@ -21,7 +24,13 @@ export default class MainPageSteps {
 
 	public async deleteAddedUserFromUsersTableOnMainPage() {
 		await this.mainPage.deleteNewUserButton().click();
-		await this.mainPage.delYesConfButton().click();
+		await this.deletePage.YesConfButton().click();
+	}
+	public async clickDeleteAddedUserButtonInUsersTable() {
+		await this.mainPage.deleteNewUserButton().click();
+	}
+	public async clickYesConfirmationButtonInDeleteUserForm() {
+		await this.deletePage.YesConfButton().click();
 	}
 
 	public async checkThatUserIsDeletedFromUsersTableOnMainPage(
@@ -36,6 +45,10 @@ export default class MainPageSteps {
 			0
 		);
 		await expect(this.mainPage.checkUserYearInTable(year)).toHaveCount(0);
+	}
+
+	public async clickEditNewUserButtonInUsersTable() {
+		await this.mainPage.editNewUserButton().click();
 	}
 
 	public async checkThatAddressWithValidDataIsAddedToAddressesTableOnMainPage(
@@ -58,7 +71,11 @@ export default class MainPageSteps {
 
 	public async deleteAddedAddressFromAddressesTableOnMainPage() {
 		await this.mainPage.deleteNewAddressButton().click();
-		await this.mainPage.delYesConfButton().click();
+		await this.deletePage.YesConfButton().click();
+	}
+
+	public async clickDeleteAddedAddressButtonInAddressesTable() {
+		await this.mainPage.deleteNewAddressButton().click();
 	}
 
 	public async checkThatAddressIsDeletedFromAddressesTableOnMainPage(

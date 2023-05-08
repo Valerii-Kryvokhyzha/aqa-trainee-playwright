@@ -8,23 +8,24 @@ import {
 	UserSelector,
 	UserValidData,
 } from '../DTO/inputDataValues/userInputData';
+import EditUserSteps from '../steps/editUserSteps';
 
 let userSteps: UserSteps;
 let mainPageSteps: MainPageSteps;
 let basePageSteps: BasePageSteps;
+let editUserSteps: EditUserSteps;
 
 test.beforeEach(async () => {
 	await driver.start();
 
 	userSteps = new UserSteps();
 	mainPageSteps = new MainPageSteps();
+	editUserSteps = new EditUserSteps();
 	basePageSteps = new BasePageSteps(driver.page);
 
 	await basePageSteps.goToPage(URLs.addUserURL);
 	await basePageSteps.checkPageURL(URLs.addUserURL);
-});
 
-test('Check that new User is created using valid data on "Add User" page', async () => {
 	await userSteps.selectValueFromGenderDropdownInAddUserForm(
 		UserSelector.male
 	);
@@ -34,11 +35,24 @@ test('Check that new User is created using valid data on "Add User" page', async
 	);
 	await userSteps.clickCreateButtonInAddUserForm();
 	await basePageSteps.checkPageURL(URLs.homeURL);
+});
+
+test('Check that new User is edited using valid data', async () => {
+	await mainPageSteps.clickEditNewUserButtonInUsersTable();
+	await editUserSteps.selectValueFromGenderDropdownInAddUserForm(
+		UserSelector.default
+	);
+	await editUserSteps.fillAllTextFieldsWithDataInEditUserForm(
+		UserValidData.nameMAX,
+		UserValidData.yearMAX
+	);
+	await editUserSteps.clickUpdateButtonInEditUserForm();
+	await basePageSteps.checkPageURL(URLs.homeURL);
 
 	await mainPageSteps.checkThatUserWithValidDataIsAddedToUsersTableOnMainPage(
-		UserSelector.male,
-		UserValidData.nameMIN,
-		UserValidData.yearMIN
+		UserSelector.default,
+		UserValidData.nameMAX,
+		UserValidData.yearMAX
 	);
 });
 
@@ -46,9 +60,9 @@ test.afterEach(async () => {
 	await mainPageSteps.deleteAddedUserFromUsersTableOnMainPage();
 
 	await mainPageSteps.checkThatUserIsDeletedFromUsersTableOnMainPage(
-		UserSelector.male,
-		UserValidData.nameMIN,
-		UserValidData.yearMIN
+		UserSelector.default,
+		UserValidData.nameMAX,
+		UserValidData.yearMAX
 	);
 
 	driver.close();

@@ -35,6 +35,7 @@ export default defineConfig({
 		trace: 'retain-on-failure',
 		screenshot: 'only-on-failure',
 		headless: false,
+		testIdAttribute: 'data-id',
 	},
 	timeout: 0,
 	expect: {

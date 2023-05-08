@@ -4,11 +4,12 @@ export enum UserValidData {
 	yearMIN = '1900',
 	yearMAX = '2004',
 }
+
 export enum UserInvalidData {
-	nameMIN = 'Le',
-	nameMAX = 'AAAAooooAAAAoooo',
-	yearMIN = '190',
-	yearMAX = '2005',
+	nameShort = 'Le',
+	nameLong = 'AAAAooooAAAAoooo',
+	yearShort = '190',
+	yearInvalid = '2005',
 }
 
 export enum UserSelector {

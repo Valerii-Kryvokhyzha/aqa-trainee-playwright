@@ -10,10 +10,10 @@ export default class UserSteps {
 	}
 
 	public async fillAllTextFieldsWithDataInAddUserForm(
-		userName: string,
+		name: string,
 		year: string
 	) {
-		await this.addUserPage.userNameInput().fill(userName);
+		await this.addUserPage.userNameInput().fill(name);
 		await this.addUserPage.yearOfBirthInput().fill(year);
 	}
 
@@ -59,7 +59,7 @@ export default class UserSteps {
 		);
 	}
 
-	public async checkThatAllValidationMessagesInAdduserFormHaveText(
+	public async checkThatAllValidationMessagesInAddUserFormHaveText(
 		nameValidationMessage: string,
 		yearValidationMessage: string
 	) {

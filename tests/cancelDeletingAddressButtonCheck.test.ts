@@ -1,53 +1,47 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
+import BasePageSteps from '../steps/basePageSteps';
+import DeleteSteps from '../steps/deleteConfirmationSteps';
+import MainPageSteps from '../steps/mainPageSteps';
+
 import URLs from '../DTO/pageURLs/websiteURLs';
 import AddressSteps from '../steps/addressSteps';
-import MainPageSteps from '../steps/mainPageSteps';
 import {AddressValidData} from '../DTO/inputDataValues/addressInputData';
-import BasePageSteps from '../steps/basePageSteps';
 
+let deletePageSteps: DeleteSteps;
 let addressSteps: AddressSteps;
-let mainPageSteps: MainPageSteps;
 let basePageSteps: BasePageSteps;
+let mainPageSteps: MainPageSteps;
 
 test.beforeEach(async () => {
 	await driver.start();
 
+	deletePageSteps = new DeleteSteps();
 	addressSteps = new AddressSteps();
 	mainPageSteps = new MainPageSteps();
 	basePageSteps = new BasePageSteps(driver.page);
 
 	await basePageSteps.goToPage(URLs.addAddressURL);
 	await basePageSteps.checkPageURL(URLs.addAddressURL);
-});
 
-test('Check that new Address is created using valid data on "Add Address" page', async () => {
 	await addressSteps.fillAllTextFieldsWithDataInAddAddressForm(
-		AddressValidData.streetMAX,
+		AddressValidData.streetMIN,
 		AddressValidData.cityMAX,
-		AddressValidData.stateMAX,
+		AddressValidData.stateMIN,
 		AddressValidData.zipCodeMAX
 	);
+
 	await addressSteps.clickCreateButtonInAddAddressForm();
 	await basePageSteps.checkPageURL(URLs.homeURL);
+});
 
-	await mainPageSteps.checkThatAddressWithValidDataIsAddedToAddressesTableOnMainPage(
-		AddressValidData.streetMAX,
-		AddressValidData.cityMAX,
-		AddressValidData.stateMAX,
-		AddressValidData.zipCodeMAX
-	);
+test('Check that "Cancel" button cancel deleting the Address on "Delete Address" page', async () => {
+	await mainPageSteps.clickDeleteAddedAddressButtonInAddressesTable();
+	await deletePageSteps.clickCancelButtonInDeleteForm();
+	await basePageSteps.checkPageURL(URLs.homeURL);
 });
 
 test.afterEach(async () => {
 	await mainPageSteps.deleteAddedAddressFromAddressesTableOnMainPage();
-
-	await mainPageSteps.checkThatAddressIsDeletedFromAddressesTableOnMainPage(
-		AddressValidData.streetMAX,
-		AddressValidData.cityMAX,
-		AddressValidData.stateMAX,
-		AddressValidData.zipCodeMAX
-	);
-
 	driver.close();
 });

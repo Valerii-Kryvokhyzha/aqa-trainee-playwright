@@ -1,12 +1,13 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import {URLs} from '../base/pageURLs/websiteURLs';
+import URLs from '../DTO/pageURLs/websiteURLs';
 import AddressSteps from '../steps/addressSteps';
-import {AddressValidationMessage} from '../base/validationMessages/addressValidationMessages';
-import {pageTitles, titleProperties} from '../base/pageTextTitles/textTitle';
-import {ButtonColor, ButtonText} from '../base/buttons/buttonProperties';
-import {AddressInvalidData} from '../base/inputDataValues/addressInputData';
 import BasePageSteps from '../steps/basePageSteps';
+import {AddressInvalidData} from '../DTO/inputDataValues/addressInputData';
+import AddressValidationMessage from '../DTO/formValidationMessages/addressValidationMessages';
+import PageTitleText from '../DTO/pageTitles/pageTitleText';
+import Color from '../DTO/colors';
+import ActionButtonText from '../DTO/buttons/actionButtonText';
 
 let addressSteps: AddressSteps;
 let basePageSteps: BasePageSteps;
@@ -22,20 +23,20 @@ test.beforeEach(async () => {
 });
 
 test('Check title properties on "Add Address" page', async () => {
-	await addressSteps.checkThatAddressPageTitleHasText(pageTitles.addAddress);
-	await addressSteps.checkThatAddressPageTitleHasTextColor(
-		titleProperties.colorBlack
+	await addressSteps.checkThatAddressPageTitleHasText(
+		PageTitleText.addAddress
 	);
+	await addressSteps.checkThatAddressPageTitleHasTextColor(Color.black);
 });
 
 test('Check action buttons properties in "Add Address" form', async () => {
 	await addressSteps.checkThatCreateAddressButtonHasProperties(
-		ButtonText.createBtn,
-		ButtonColor.createBtn
+		ActionButtonText.createBtn,
+		Color.blue
 	);
 	await addressSteps.checkThatCancelAddressCreationButtonHasProperties(
-		ButtonText.cancelBtn,
-		ButtonColor.cancelBtn
+		ActionButtonText.cancelBtn,
+		Color.grey
 	);
 });
 

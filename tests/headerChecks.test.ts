@@ -1,8 +1,8 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import {URLs} from '../base/pageURLs/websiteURLs';
-import {pageTitles} from '../base/pageTextTitles/textTitle';
-import {HeaderButtonsText} from '../base/buttons/buttonProperties';
+import URLs from '../DTO/pageURLs/websiteURLs';
+import PageTitleText from '../DTO/pageTitles/pageTitleText';
+import HeaderButtonText from '../DTO/buttons/headerButtonText';
 import HeaderSteps from '../steps/headerSteps';
 import MainPageSteps from '../steps/mainPageSteps';
 import UserSteps from '../steps/userSteps';
@@ -30,27 +30,29 @@ test.beforeEach(async () => {
 
 test('Check redirections between the pages of Trainee website', async () => {
 	await headerSteps.checkThatHeaderButtonsHaveText(
-		HeaderButtonsText.logo,
-		HeaderButtonsText.home,
-		HeaderButtonsText.addUser,
-		HeaderButtonsText.addAddress
+		HeaderButtonText.logo,
+		HeaderButtonText.home,
+		HeaderButtonText.addUser,
+		HeaderButtonText.addAddress
 	);
 
 	await headerSteps.clickAddUserButton();
 	await basePageSteps.checkPageURL(URLs.addUserURL);
-	await userSteps.checkThatUserPageTitleHasText(pageTitles.addUser);
+	await userSteps.checkThatUserPageTitleHasText(PageTitleText.addUser);
 
 	await headerSteps.clickLogoButton();
 	await basePageSteps.checkPageURL(URLs.homeURL);
-	await mainPageSteps.checkThatMainPageTitleHasText(pageTitles.main);
+	await mainPageSteps.checkThatMainPageTitleHasText(PageTitleText.main);
 
 	await headerSteps.clickAddAddressButton();
 	await basePageSteps.checkPageURL(URLs.addAddressURL);
-	await addressSteps.checkThatAddressPageTitleHasText(pageTitles.addAddress);
+	await addressSteps.checkThatAddressPageTitleHasText(
+		PageTitleText.addAddress
+	);
 
 	await headerSteps.clickHomeButton();
 	await basePageSteps.checkPageURL(URLs.homeURL);
-	await mainPageSteps.checkThatMainPageTitleHasText(pageTitles.main);
+	await mainPageSteps.checkThatMainPageTitleHasText(PageTitleText.main);
 });
 
 test.afterEach(async () => {

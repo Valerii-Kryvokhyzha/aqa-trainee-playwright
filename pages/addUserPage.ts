@@ -1,32 +1,35 @@
 import BasePage from './basePage';
+import PageTitle from '../identifiers/pageTitle';
+import ActionButton from '../identifiers/butttons/actionButton';
+import AddUserForm from '../identifiers/forms/addUserForm';
 
 export default class AddUserPage extends BasePage {
 	public titleText() {
-		return this.page.locator('//h1[text()="Add User"]');
+		return this.page.locator(PageTitle.userPage);
 	}
 
 	public createButton() {
-		return this.page.locator('//button[@data-id="button-Create"]');
+		return this.page.getByTestId(ActionButton.createButton);
 	}
 	public cancelButton() {
-		return this.page.locator('//a[@data-id="button-Cancel"]');
-	}
-
-	public userNameInput() {
-		return this.page.getByPlaceholder('User Name');
-	}
-	public userNameValidationMessage() {
-		return this.page.locator('//span[@id="inputUserName-error"]');
-	}
-
-	public yearOfBirthInput() {
-		return this.page.getByPlaceholder('Year of Birth');
-	}
-	public yearOfBirthValidationMessage() {
-		return this.page.locator('//span[@id="inputYearOfBirth-error"]');
+		return this.page.getByTestId(ActionButton.cancelButton);
 	}
 
 	public genderSelector() {
-		return this.page.locator('//select[@id="selectGender"]');
+		return this.page.getByTestId(AddUserForm.selector);
+	}
+	public userNameInput() {
+		return this.page.getByTestId(AddUserForm.nameInput);
+	}
+	public yearOfBirthInput() {
+		return this.page.getByTestId(AddUserForm.yearInput);
+	}
+
+	public userNameValidationMessage() {
+		return this.page.getByTestId(AddUserForm.nameValidationMessage);
+	}
+
+	public yearOfBirthValidationMessage() {
+		return this.page.getByTestId(AddUserForm.yearValidationMessage);
 	}
 }
