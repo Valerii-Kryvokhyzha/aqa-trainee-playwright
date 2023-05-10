@@ -8,6 +8,7 @@ export enum AddressValidData {
 	zipCodeMIN = '00000',
 	zipCodeMAX = '99999',
 }
+
 export enum AddressInvalidData {
 	streetMIN = 'adDr',
 	streetMAX = 'aaaaDDDDrrrrEEEEssssAAAAddddrrrr',

@@ -15,6 +15,7 @@ test.beforeEach(async () => {
 
 	mainPageSteps = new MainPageSteps();
 	basePageSteps = new BasePageSteps(driver.page);
+
 	await basePageSteps.goToPage(URLs.homeURL);
 	await basePageSteps.checkPageURL(URLs.homeURL);
 });

@@ -13,6 +13,7 @@ export default class HeaderSteps {
 		await expect(this.header.logoButton()).toBeVisible();
 		await expect(this.header.logoButton()).toHaveText(logoText);
 	}
+
 	public async checkThatHomeButtonInHeaderHasText(homeText: string) {
 		await expect(this.header.homeButton()).toBeVisible();
 		await expect(this.header.homeButton()).toHaveText(homeText);
@@ -22,6 +23,7 @@ export default class HeaderSteps {
 		await expect(this.header.addUserButton()).toBeVisible();
 		await expect(this.header.addUserButton()).toHaveText(userText);
 	}
+
 	public async checkThatAddAddressButtonInHeaderHasText(addressText: string) {
 		await expect(this.header.addAddressButton()).toBeVisible();
 		await expect(this.header.addAddressButton()).toHaveText(addressText);
