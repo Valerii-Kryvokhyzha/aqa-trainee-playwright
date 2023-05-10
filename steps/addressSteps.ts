@@ -28,6 +28,7 @@ export default class AddressSteps {
 	public async checkThatAddressPageTitleHasText(text: string) {
 		await expect(this.addAddressPage.titleText()).toHaveText(`${text}`);
 	}
+
 	public async checkThatAddressPageTitleHasTextColor(textColor: string) {
 		await expect(this.addAddressPage.titleText()).toHaveCSS(
 			'color',
@@ -66,6 +67,7 @@ export default class AddressSteps {
 		await expect(
 			this.addAddressPage.streetAddressValidationMessage()
 		).toHaveText(`${streetValidationMessage}`);
+
 		await expect(this.addAddressPage.cityValidationMessage()).toHaveText(
 			`${cityValidationMessage}`
 		);

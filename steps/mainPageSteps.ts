@@ -25,17 +25,11 @@ export default class MainPageSteps {
 	}
 
 	public async checkThatUserIsDeletedFromUsersTableOnMainPage(
-		gender: string,
-		userName: string,
-		year: string
+		userName: string
 	) {
-		await expect(this.mainPage.checkUserGenderInTable(gender)).toHaveCount(
-			0
-		);
-		await expect(this.mainPage.checkUserNameInTable(userName)).toHaveCount(
-			0
-		);
-		await expect(this.mainPage.checkUserYearInTable(year)).toHaveCount(0);
+		await expect(
+			this.mainPage.checkRowInTableWithUserName(userName)
+		).toHaveCount(0);
 	}
 
 	public async checkThatAddressWithValidDataIsAddedToAddressesTableOnMainPage(
@@ -62,28 +56,17 @@ export default class MainPageSteps {
 	}
 
 	public async checkThatAddressIsDeletedFromAddressesTableOnMainPage(
-		street: string,
-		city: string,
-		state: string,
-		zipCode: string
+		street: string
 	) {
 		await expect(
 			this.mainPage.checkAddressSteetInTable(street)
-		).toHaveCount(0);
-		await expect(this.mainPage.checkAddressCityInTable(city)).toHaveCount(
-			0
-		);
-		await expect(this.mainPage.checkAddressStateInTable(state)).toHaveCount(
-			0
-		);
-		await expect(
-			this.mainPage.checkAddressZipCodeInTable(zipCode)
 		).toHaveCount(0);
 	}
 
 	public async checkThatMainPageTitleHasText(text: string) {
 		await expect(this.mainPage.titleText()).toHaveText(`${text}`);
 	}
+
 	public async checkThatMainPageTitleHasTextColor(textColor: string) {
 		await expect(this.mainPage.titleText()).toHaveCSS(
 			'color',

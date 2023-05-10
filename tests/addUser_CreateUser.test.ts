@@ -34,7 +34,6 @@ test('Check that new User is created using valid data on "Add User" page', async
 	);
 	await userSteps.clickCreateButtonInAddUserForm();
 	await basePageSteps.checkPageURL(URLs.homeURL);
-
 	await mainPageSteps.checkThatUserWithValidDataIsAddedToUsersTableOnMainPage(
 		UserSelector.male,
 		UserValidData.nameMIN,
@@ -44,11 +43,8 @@ test('Check that new User is created using valid data on "Add User" page', async
 
 test.afterEach(async () => {
 	await mainPageSteps.deleteAddedUserFromUsersTableOnMainPage();
-
 	await mainPageSteps.checkThatUserIsDeletedFromUsersTableOnMainPage(
-		UserSelector.male,
-		UserValidData.nameMIN,
-		UserValidData.yearMIN
+		UserValidData.nameMIN
 	);
 
 	driver.close();
