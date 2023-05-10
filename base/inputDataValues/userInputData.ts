@@ -4,6 +4,7 @@ export enum UserValidData {
 	yearMIN = '1900',
 	yearMAX = '2004',
 }
+
 export enum UserInvalidData {
 	nameMIN = 'Le',
 	nameMAX = 'AAAAooooAAAAoooo',

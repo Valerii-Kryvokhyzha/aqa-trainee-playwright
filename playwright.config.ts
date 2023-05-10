@@ -27,12 +27,12 @@ export default defineConfig({
 	use: {
 		actionTimeout: 5 * 1000,
 		// Trainee Website can take a very long time to load on first launch:
-		navigationTimeout: 15 * 1000,
+		navigationTimeout: 20 * 1000,
 		/* Base URL to use in actions like `await page.goto('/')`. */
 		// baseURL: 'http://127.0.0.1:3000',
 
 		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-		trace: 'on-first-retry',
+		trace: 'retain-on-failure',
 		screenshot: 'only-on-failure',
 		headless: false,
 	},

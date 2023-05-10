@@ -1,60 +1,48 @@
-import {expect, test} from '@playwright/test';
+import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
 import {URLs} from '../base/pageURLs/websiteURLs';
-import AddAddressPage from '../pages/addAddressPage';
-import MainPage from '../pages/mainPage';
+import AddressSteps from '../steps/addressSteps';
+import MainPageSteps from '../steps/mainPageSteps';
 import {AddressValidData} from '../base/inputDataValues/addressInputData';
+import BasePageSteps from '../steps/basePageSteps';
 
-let addAddressPage: AddAddressPage;
-let mainPage: MainPage;
+let addressSteps: AddressSteps;
+let mainPageSteps: MainPageSteps;
+let basePageSteps: BasePageSteps;
 
 test.beforeEach(async () => {
 	await driver.start();
 
-	addAddressPage = new AddAddressPage(driver.page);
-	await addAddressPage.goToPage(URLs.addAddressURL);
-	await addAddressPage.checkPageURL(URLs.addAddressURL);
+	addressSteps = new AddressSteps();
+	mainPageSteps = new MainPageSteps();
+	basePageSteps = new BasePageSteps(driver.page);
 
-	mainPage = new MainPage(driver.page);
+	await basePageSteps.goToPage(URLs.addAddressURL);
+	await basePageSteps.checkPageURL(URLs.addAddressURL);
 });
 
 test('Check that new Address is created using valid data on "Add Address" page', async () => {
-	await addAddressPage
-		.streetAddressInput()
-		.fill(`${AddressValidData.streetMAX}`);
-	await addAddressPage.cityInput().fill(`${AddressValidData.cityMAX}`);
-	await addAddressPage.stateInput().fill(`${AddressValidData.stateMAX}`);
-	await addAddressPage.zipCodeInput().fill(`${AddressValidData.zipCodeMAX}`);
-
-	await addAddressPage.createButton().press('Enter');
-
-	await mainPage.checkPageURL(URLs.homeURL);
-
-	await expect(mainPage.addedAddressStreetInTable()).toHaveText(
-		AddressValidData.streetMAX
-	);
-	await expect(mainPage.addedAddressCityInTable()).toHaveText(
-		AddressValidData.cityMAX
-	);
-	await expect(mainPage.addedAddressStateInTable()).toHaveText(
-		AddressValidData.stateMAX
-	);
-	await expect(mainPage.addedAddressZipCodeInTable()).toHaveText(
+	await addressSteps.fillAllTextFieldsWithDataInAddAddressForm(
+		AddressValidData.streetMAX,
+		AddressValidData.cityMAX,
+		AddressValidData.stateMAX,
 		AddressValidData.zipCodeMAX
 	);
-
-	await expect(
-		mainPage.checkUserNameInTable(AddressValidData.streetMAX)
-	).toBeVisible();
+	await addressSteps.clickCreateButtonInAddAddressForm();
+	await basePageSteps.checkPageURL(URLs.homeURL);
+	await mainPageSteps.checkThatAddressWithValidDataIsAddedToAddressesTableOnMainPage(
+		AddressValidData.streetMAX,
+		AddressValidData.cityMAX,
+		AddressValidData.stateMAX,
+		AddressValidData.zipCodeMAX
+	);
 });
 
 test.afterEach(async () => {
-	await mainPage.deleteNewAddressButton().click();
-	await mainPage.delYesConfButton().click();
-
-	await expect(
-		mainPage.checkUserNameInTable(AddressValidData.streetMAX)
-	).toHaveCount(0);
+	await mainPageSteps.deleteAddedAddressFromAddressesTableOnMainPage();
+	await mainPageSteps.checkThatAddressIsDeletedFromAddressesTableOnMainPage(
+		AddressValidData.streetMAX
+	);
 
 	driver.close();
 });

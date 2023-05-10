@@ -1,90 +1,67 @@
-import {expect, test} from '@playwright/test';
+import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
 import {URLs} from '../base/pageURLs/websiteURLs';
-import AddAddressPage from '../pages/addAddressPage';
+import AddressSteps from '../steps/addressSteps';
 import {AddressValidationMessage} from '../base/validationMessages/addressValidationMessages';
 import {pageTitles, titleProperties} from '../base/pageTextTitles/textTitle';
 import {ButtonColor, ButtonText} from '../base/buttons/buttonProperties';
 import {AddressInvalidData} from '../base/inputDataValues/addressInputData';
+import BasePageSteps from '../steps/basePageSteps';
 
-let addAddressPage: AddAddressPage;
+let addressSteps: AddressSteps;
+let basePageSteps: BasePageSteps;
 
 test.beforeEach(async () => {
 	await driver.start();
 
-	addAddressPage = new AddAddressPage(driver.page);
-	await addAddressPage.goToPage(URLs.addAddressURL);
-	await addAddressPage.checkPageURL(URLs.addAddressURL);
+	addressSteps = new AddressSteps();
+	basePageSteps = new BasePageSteps(driver.page);
+
+	await basePageSteps.goToPage(URLs.addAddressURL);
+	await basePageSteps.checkPageURL(URLs.addAddressURL);
 });
 
-test('Check that title is displayed on "Add Address" page', async () => {
-	await expect(addAddressPage.titleText()).toHaveText(
-		`${pageTitles.addAddress}`
-	);
-	await expect(addAddressPage.titleText()).toHaveCSS(
-		'color',
-		`${titleProperties.colorBlack}`
+test('Check title properties on "Add Address" page', async () => {
+	await addressSteps.checkThatAddressPageTitleHasText(pageTitles.addAddress);
+	await addressSteps.checkThatAddressPageTitleHasTextColor(
+		titleProperties.colorBlack
 	);
 });
 
 test('Check action buttons properties in "Add Address" form', async () => {
-	await expect(addAddressPage.createButton()).toHaveText(
-		`${ButtonText.createBtn}`
+	await addressSteps.checkThatCreateAddressButtonHasProperties(
+		ButtonText.createBtn,
+		ButtonColor.createBtn
 	);
-	await expect(addAddressPage.createButton()).toHaveCSS(
-		'background-color',
-		`${ButtonColor.createBtn}`
-	);
-
-	await expect(addAddressPage.cancelButton()).toHaveText(
-		`${ButtonText.cancelBtn}`
-	);
-	await expect(addAddressPage.cancelButton()).toHaveCSS(
-		'background-color',
-		`${ButtonColor.cancelBtn}`
+	await addressSteps.checkThatCancelAddressCreationButtonHasProperties(
+		ButtonText.cancelBtn,
+		ButtonColor.cancelBtn
 	);
 });
 
 test('Check validation messages in "Add Address" form with empty fields', async () => {
-	await addAddressPage.createButton().click();
-
-	await expect(addAddressPage.streetAddressValidationMessage()).toHaveText(
-		`${AddressValidationMessage.streetEmpty}`
-	);
-	await expect(addAddressPage.cityValidationMessage()).toHaveText(
-		`${AddressValidationMessage.cityEmpty}`
-	);
-	await expect(addAddressPage.stateValidationMessage()).toHaveText(
-		`${AddressValidationMessage.stateEmpty}`
-	);
-	await expect(addAddressPage.zipCodeValidationMessage()).toHaveText(
-		`${AddressValidationMessage.zipCodeEmpty}`
+	await addressSteps.clickCreateButtonInAddAddressForm();
+	await addressSteps.checkThatAllValidationMessagesInAddAddressFormHaveText(
+		AddressValidationMessage.streetEmpty,
+		AddressValidationMessage.cityEmpty,
+		AddressValidationMessage.stateEmpty,
+		AddressValidationMessage.zipCodeEmpty
 	);
 });
 
 test('Check validation messages in "Add Address" form with invalid data', async () => {
-	await addAddressPage
-		.streetAddressInput()
-		.fill(`${AddressInvalidData.streetMIN}`);
-	await addAddressPage.cityInput().fill(`${AddressInvalidData.cityMIN}`);
-	await addAddressPage.stateInput().fill(`${AddressInvalidData.stateMIN}`);
-	await addAddressPage
-		.zipCodeInput()
-		.fill(`${AddressInvalidData.zipCodeMIN}`);
-
-	await addAddressPage.createButton().press('Enter');
-
-	await expect(addAddressPage.streetAddressValidationMessage()).toHaveText(
-		`${AddressValidationMessage.streetShort}`
+	await addressSteps.fillAllTextFieldsWithDataInAddAddressForm(
+		AddressInvalidData.streetMIN,
+		AddressInvalidData.cityMIN,
+		AddressInvalidData.stateMIN,
+		AddressInvalidData.zipCodeMIN
 	);
-	await expect(addAddressPage.cityValidationMessage()).toHaveText(
-		`${AddressValidationMessage.cityShort}`
-	);
-	await expect(addAddressPage.stateValidationMessage()).toHaveText(
-		`${AddressValidationMessage.stateShort}`
-	);
-	await expect(addAddressPage.zipCodeValidationMessage()).toHaveText(
-		`${AddressValidationMessage.zipCodeIncorrect}`
+	await addressSteps.clickCreateButtonInAddAddressForm();
+	await addressSteps.checkThatAllValidationMessagesInAddAddressFormHaveText(
+		AddressValidationMessage.streetShort,
+		AddressValidationMessage.cityShort,
+		AddressValidationMessage.stateShort,
+		AddressValidationMessage.zipCodeIncorrect
 	);
 });
 

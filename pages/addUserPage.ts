@@ -8,6 +8,7 @@ export default class AddUserPage extends BasePage {
 	public createButton() {
 		return this.page.locator('//button[@data-id="button-Create"]');
 	}
+
 	public cancelButton() {
 		return this.page.locator('//a[@data-id="button-Cancel"]');
 	}
@@ -23,6 +24,7 @@ export default class AddUserPage extends BasePage {
 	public yearOfBirthInput() {
 		return this.page.getByPlaceholder('Year of Birth');
 	}
+
 	public yearOfBirthValidationMessage() {
 		return this.page.locator('//span[@id="inputYearOfBirth-error"]');
 	}
