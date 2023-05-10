@@ -9,10 +9,11 @@ export default class EditUserPage extends BasePage {
 	}
 
 	public updateButton() {
-		return this.page.getByTestId(ActionButton.updateButton);
+		return this.page.getByTestId(ActionButton.update);
 	}
+
 	public cancelButton() {
-		return this.page.getByTestId(ActionButton.cancelButton);
+		return this.page.getByTestId(ActionButton.cancel);
 	}
 
 	public chooseFileButton() {
@@ -22,9 +23,11 @@ export default class EditUserPage extends BasePage {
 	public genderSelector() {
 		return this.page.getByTestId(EditUserForm.selector);
 	}
+
 	public userNameInput() {
 		return this.page.getByTestId(EditUserForm.nameInput);
 	}
+
 	public yearOfBirthInput() {
 		return this.page.getByTestId(EditUserForm.yearInput);
 	}

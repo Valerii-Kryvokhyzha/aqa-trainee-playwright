@@ -30,7 +30,6 @@ test.beforeEach(async () => {
 		AddressValidData.stateMIN,
 		AddressValidData.zipCodeMAX
 	);
-
 	await addressSteps.clickCreateButtonInAddAddressForm();
 	await basePageSteps.checkPageURL(URLs.homeURL);
 });

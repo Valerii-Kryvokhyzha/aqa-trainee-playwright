@@ -30,6 +30,7 @@ export default class UserSteps {
 	public async checkThatUserPageTitleHasText(text: string) {
 		await expect(this.addUserPage.titleText()).toHaveText(`${text}`);
 	}
+
 	public async checkThatUserPageTitleHasTextColor(textColor: string) {
 		await expect(this.addUserPage.titleText()).toHaveCSS(
 			'color',

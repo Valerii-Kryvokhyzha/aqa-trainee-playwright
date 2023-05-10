@@ -12,6 +12,7 @@ export default class DeleteSteps {
 	public async clickYesButtonInDeleteForm() {
 		await this.deletePage.YesConfButton().click();
 	}
+
 	public async clickCancelButtonInDeleteForm() {
 		await this.deletePage.CancelButton().click();
 	}
@@ -19,6 +20,7 @@ export default class DeleteSteps {
 	public async checkThatDeletePageTitleHasText(text: string) {
 		await expect(this.deletePage.TitleText()).toHaveText(`${text}`);
 	}
+
 	public async checkThatDeletePageTitleHasTextColor(textColor: string) {
 		await expect(this.deletePage.TitleText()).toHaveCSS(
 			'color',

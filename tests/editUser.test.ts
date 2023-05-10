@@ -48,7 +48,6 @@ test('Check that new User is edited using valid data', async () => {
 	);
 	await editUserSteps.clickUpdateButtonInEditUserForm();
 	await basePageSteps.checkPageURL(URLs.homeURL);
-
 	await mainPageSteps.checkThatUserWithValidDataIsAddedToUsersTableOnMainPage(
 		UserSelector.default,
 		UserValidData.nameMAX,
@@ -58,11 +57,8 @@ test('Check that new User is edited using valid data', async () => {
 
 test.afterEach(async () => {
 	await mainPageSteps.deleteAddedUserFromUsersTableOnMainPage();
-
 	await mainPageSteps.checkThatUserIsDeletedFromUsersTableOnMainPage(
-		UserSelector.default,
-		UserValidData.nameMAX,
-		UserValidData.yearMAX
+		UserValidData.nameMAX
 	);
 
 	driver.close();

@@ -10,6 +10,7 @@ export default class BasePageSteps {
 	public async goToPage(url: string) {
 		await this.page.goto(url);
 	}
+
 	public async checkPageURL(url: string) {
 		await expect(this.page).toHaveURL(url);
 	}

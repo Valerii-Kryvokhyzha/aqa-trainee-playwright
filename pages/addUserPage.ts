@@ -9,18 +9,21 @@ export default class AddUserPage extends BasePage {
 	}
 
 	public createButton() {
-		return this.page.getByTestId(ActionButton.createButton);
+		return this.page.getByTestId(ActionButton.create);
 	}
+
 	public cancelButton() {
-		return this.page.getByTestId(ActionButton.cancelButton);
+		return this.page.getByTestId(ActionButton.cancel);
 	}
 
 	public genderSelector() {
 		return this.page.getByTestId(AddUserForm.selector);
 	}
+
 	public userNameInput() {
 		return this.page.getByTestId(AddUserForm.nameInput);
 	}
+
 	public yearOfBirthInput() {
 		return this.page.getByTestId(AddUserForm.yearInput);
 	}

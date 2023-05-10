@@ -46,9 +46,7 @@ test.afterEach(async () => {
 	await mainPageSteps.deleteAddedUserFromUsersTableOnMainPage();
 
 	await mainPageSteps.checkThatUserIsDeletedFromUsersTableOnMainPage(
-		UserSelector.male,
-		UserValidData.nameMIN,
-		UserValidData.yearMIN
+		UserValidData.nameMIN
 	);
 
 	driver.close();

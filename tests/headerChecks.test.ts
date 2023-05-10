@@ -28,14 +28,18 @@ test.beforeEach(async () => {
 	await basePageSteps.checkPageURL(URLs.homeURL);
 });
 
-test('Check redirections between the pages of Trainee website', async () => {
-	await headerSteps.checkThatHeaderButtonsHaveText(
-		HeaderButtonText.logo,
-		HeaderButtonText.home,
-		HeaderButtonText.addUser,
+test('Check that buttons in header have text', async () => {
+	await headerSteps.checkThatLogoButtonInHeaderHasText(HeaderButtonText.logo);
+	await headerSteps.checkThatHomeButtonInHeaderHasText(HeaderButtonText.home);
+	await headerSteps.checkThatAddUserButtonInHeaderHasText(
+		HeaderButtonText.addUser
+	);
+	await headerSteps.checkThatAddAddressButtonInHeaderHasText(
 		HeaderButtonText.addAddress
 	);
+});
 
+test('Check redirections between the pages of Trainee website', async () => {
 	await headerSteps.clickAddUserButton();
 	await basePageSteps.checkPageURL(URLs.addUserURL);
 	await userSteps.checkThatUserPageTitleHasText(PageTitleText.addUser);

@@ -30,6 +30,7 @@ export default class EditUserSteps {
 	public async checkThatEditUserPageTitleHasText(text: string) {
 		await expect(this.editUserPage.titleText()).toHaveText(`${text}`);
 	}
+
 	public async checkThatEditUserPageTitleHasTextColor(textColor: string) {
 		await expect(this.editUserPage.titleText()).toHaveCSS(
 			'color',

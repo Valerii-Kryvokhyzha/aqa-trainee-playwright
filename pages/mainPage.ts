@@ -3,6 +3,8 @@ import MainTable from '../identifiers/tables/mainTable';
 import TableButton from '../identifiers/butttons/mainTableButtons';
 
 import BasePage from './basePage';
+import UsersTable from '../identifiers/tables/usersTable';
+import AddressesTable from '../identifiers/tables/addressesTable';
 
 export default class MainPage extends BasePage {
 	public titleText() {
@@ -12,35 +14,33 @@ export default class MainPage extends BasePage {
 	public usersTable() {
 		return this.page.getByTestId(MainTable.usersTable);
 	}
+
 	public usersTableHeader() {
 		return this.usersTable().locator(MainTable.subheader);
 	}
 
 	public addedUserGenderInTable() {
-		return this.page.locator(MainTable.addedUserGender);
-	}
-	public addedUserNameInTable() {
-		return this.page.locator(MainTable.addedUserName);
-	}
-	public addedUserYearInTable() {
-		return this.page.locator(MainTable.addedUserYear);
+		return this.page.locator(UsersTable.addedUserGender);
 	}
 
-	public checkUserGenderInTable(gender: string) {
+	public addedUserNameInTable() {
+		return this.page.locator(UsersTable.addedUserName);
+	}
+
+	public addedUserYearInTable() {
+		return this.page.locator(UsersTable.addedUserYear);
+	}
+
+	public checkRowInUsersTableWithUserName(userName: string) {
 		return this.page.locator(
-			`//tr[last()]/td[contains(text(),"${gender}")]`
+			`//td[contains(text(),"${userName}")]/parent::tr`
 		);
-	}
-	public checkUserNameInTable(name: string) {
-		return this.page.locator(`//tr[last()]/td[contains(text(),"${name}")]`);
-	}
-	public checkUserYearInTable(year: string) {
-		return this.page.locator(`//tr[last()]/td[contains(text(),"${year}")]`);
 	}
 
 	public editNewUserButton() {
 		return this.page.locator(TableButton.lastEditUserBtn);
 	}
+
 	public deleteNewUserButton() {
 		return this.editNewUserButton().locator(TableButton.lastDeleteUserBtn);
 	}
@@ -48,39 +48,30 @@ export default class MainPage extends BasePage {
 	public addressesTable() {
 		return this.page.getByTestId(MainTable.addressesTable);
 	}
+
 	public addressesTableHeader() {
 		return this.addressesTable().locator(MainTable.subheader);
 	}
 
 	public addedAddressStreetInTable() {
-		return this.page.locator(MainTable.addedAddressStreet);
-	}
-	public addedAddressCityInTable() {
-		return this.page.locator(MainTable.addedAddressCity);
-	}
-	public addedAddressStateInTable() {
-		return this.page.locator(MainTable.addedAddressState);
-	}
-	public addedAddressZipCodeInTable() {
-		return this.page.locator(MainTable.addedAddressZipCode);
+		return this.page.locator(AddressesTable.addedAddressStreet);
 	}
 
-	public checkAddressSteetInTable(street: string) {
-		return this.page.locator(
-			`//tr[last()]/td[contains(text(),"${street}")]`
-		);
+	public addedAddressCityInTable() {
+		return this.page.locator(AddressesTable.addedAddressCity);
 	}
-	public checkAddressCityInTable(city: string) {
-		return this.page.locator(`//tr[last()]/td[contains(text(),"${city}")]`);
+
+	public addedAddressStateInTable() {
+		return this.page.locator(AddressesTable.addedAddressState);
 	}
-	public checkAddressStateInTable(state: string) {
-		return this.page.locator(
-			`//tr[last()]/td[contains(text(),"${state}")]`
-		);
+
+	public addedAddressZipCodeInTable() {
+		return this.page.locator(AddressesTable.addedAddressZipCode);
 	}
-	public checkAddressZipCodeInTable(zipCode: string) {
+
+	public checkRowInAddressesTableWithAddressStreet(street: string) {
 		return this.page.locator(
-			`//tr[last()]/td[contains(text(),"${zipCode}")]`
+			`//td[contains(text(),"${street}")]/parent::tr`
 		);
 	}
 

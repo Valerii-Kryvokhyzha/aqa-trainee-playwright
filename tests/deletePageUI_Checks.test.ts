@@ -46,7 +46,6 @@ test('Check title and action buttons properties on "Delete User" page', async ()
 		PageTitleText.deleteUser
 	);
 	await deletePageSteps.checkThatDeletePageTitleHasTextColor(Color.black);
-
 	await deletePageSteps.checkThatYesButtonHasProperties(
 		ActionButtonText.yesBtn,
 		Color.red
