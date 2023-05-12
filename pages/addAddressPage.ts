@@ -1,11 +1,10 @@
 import BasePage from './basePage';
-import PageTitle from '../identifiers/pageTitle';
-import ActionButton from '../identifiers/butttons/actionButton';
+import ActionButtons from '../identifiers/buttons/actionButtons';
 import AddAddressForm from '../identifiers/forms/addAddressForm';
 
 export default class AddAddressPage extends BasePage {
 	public titleText() {
-		return this.page.locator(PageTitle.addressPage);
+		return this.page.locator('//h1[text()="Add Address"]');
 	}
 
 	public streetAddressInput() {
@@ -25,11 +24,11 @@ export default class AddAddressPage extends BasePage {
 	}
 
 	public createButton() {
-		return this.page.getByTestId(ActionButton.create);
+		return this.page.getByTestId(ActionButtons.create);
 	}
 
 	public cancelButton() {
-		return this.page.getByTestId(ActionButton.cancel);
+		return this.page.getByTestId(ActionButtons.cancel);
 	}
 
 	public streetAddressValidationMessage() {

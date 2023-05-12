@@ -1,4 +1,4 @@
-export default class UserValidationMessage {
+export default class UserValidationMessages {
 	static nameEmpty = 'Name is requried';
 	static yearEmpty = 'Year of Birth is requried';
 	static nameShort = 'Name is too short';

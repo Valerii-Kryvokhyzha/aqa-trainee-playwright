@@ -1,4 +1,4 @@
-export default class HeaderButtonText {
+export default class HeaderButtonsText {
 	static logo = 'Trainees website';
 	static home = 'Home';
 	static addUser = 'Add User';

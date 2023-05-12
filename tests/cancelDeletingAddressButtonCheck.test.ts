@@ -4,9 +4,9 @@ import BasePageSteps from '../steps/basePageSteps';
 import DeleteSteps from '../steps/deleteConfirmationSteps';
 import MainPageSteps from '../steps/mainPageSteps';
 
-import URLs from '../DTO/pageURLs/websiteURLs';
+import URLs from '../provider/pageURLs/websiteURLsProvider';
 import AddressSteps from '../steps/addressSteps';
-import {AddressValidData} from '../DTO/inputDataValues/addressInputData';
+import AddressValidData from '../testData/inputDataValues/addressInputData';
 
 let deletePageSteps: DeleteSteps;
 let addressSteps: AddressSteps;

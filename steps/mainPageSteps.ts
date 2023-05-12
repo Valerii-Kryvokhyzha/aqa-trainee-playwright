@@ -17,18 +17,18 @@ export default class MainPageSteps {
 		userName: string,
 		year: string
 	) {
-		await expect(this.mainPage.addedUserGenderInTable()).toHaveText(gender);
-		await expect(this.mainPage.addedUserNameInTable()).toHaveText(userName);
-		await expect(this.mainPage.addedUserYearInTable()).toHaveText(year);
+		await expect(this.mainPage.lastUserGenderInTable()).toHaveText(gender);
+		await expect(this.mainPage.lastUserNameInTable()).toHaveText(userName);
+		await expect(this.mainPage.lastUserYearInTable()).toHaveText(year);
 	}
 
 	public async deleteAddedUserFromUsersTableOnMainPage() {
-		await this.mainPage.deleteNewUserButton().click();
+		await this.mainPage.deleteLastUserButton().click();
 		await this.deletePage.YesConfButton().click();
 	}
 
 	public async clickDeleteAddedUserButtonInUsersTable() {
-		await this.mainPage.deleteNewUserButton().click();
+		await this.mainPage.deleteLastUserButton().click();
 	}
 
 	public async clickYesConfirmationButtonInDeleteUserForm() {
@@ -44,7 +44,7 @@ export default class MainPageSteps {
 	}
 
 	public async clickEditNewUserButtonInUsersTable() {
-		await this.mainPage.editNewUserButton().click();
+		await this.mainPage.editLastUserButton().click();
 	}
 
 	public async checkThatAddressWithValidDataIsAddedToAddressesTableOnMainPage(
@@ -53,25 +53,23 @@ export default class MainPageSteps {
 		state: string,
 		zipCode: string
 	) {
-		await expect(this.mainPage.addedAddressStreetInTable()).toHaveText(
+		await expect(this.mainPage.lastAddressStreetInTable()).toHaveText(
 			street
 		);
-		await expect(this.mainPage.addedAddressCityInTable()).toHaveText(city);
-		await expect(this.mainPage.addedAddressStateInTable()).toHaveText(
-			state
-		);
-		await expect(this.mainPage.addedAddressZipCodeInTable()).toHaveText(
+		await expect(this.mainPage.lastAddressCityInTable()).toHaveText(city);
+		await expect(this.mainPage.lastAddressStateInTable()).toHaveText(state);
+		await expect(this.mainPage.lastAddressZipCodeInTable()).toHaveText(
 			zipCode
 		);
 	}
 
 	public async deleteAddedAddressFromAddressesTableOnMainPage() {
-		await this.mainPage.deleteNewAddressButton().click();
+		await this.mainPage.deleteLastAddressButton().click();
 		await this.deletePage.YesConfButton().click();
 	}
 
 	public async clickDeleteAddedAddressButtonInAddressesTable() {
-		await this.mainPage.deleteNewAddressButton().click();
+		await this.mainPage.deleteLastUserButton().click();
 	}
 
 	public async checkThatAddressIsDeletedFromAddressesTableOnMainPage(

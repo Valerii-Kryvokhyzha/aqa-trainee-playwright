@@ -1,4 +1,4 @@
-export default class ActionButtonText {
+export default class ActionButtonsText {
 	static createBtn = 'Create';
 	static cancelBtn = 'Cancel';
 	static yesBtn = 'Yes';

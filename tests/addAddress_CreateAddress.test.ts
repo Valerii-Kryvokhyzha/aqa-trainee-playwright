@@ -1,9 +1,9 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import URLs from '../DTO/pageURLs/websiteURLs';
+import URLs from '../provider/pageURLs/websiteURLsProvider';
 import AddressSteps from '../steps/addressSteps';
 import MainPageSteps from '../steps/mainPageSteps';
-import {AddressValidData} from '../DTO/inputDataValues/addressInputData';
+import AddressValidData from '../testData/inputDataValues/addressInputData';
 import BasePageSteps from '../steps/basePageSteps';
 
 let addressSteps: AddressSteps;

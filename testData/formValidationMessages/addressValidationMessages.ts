@@ -1,4 +1,4 @@
-export default class AddressValidationMessage {
+export default class AddressValidationMessages {
 	static streetEmpty = 'Street Address is required';
 	static streetShort = 'Street Address is too short';
 	static cityEmpty = 'City is required';

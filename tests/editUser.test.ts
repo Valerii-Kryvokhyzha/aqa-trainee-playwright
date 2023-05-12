@@ -1,13 +1,10 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import URLs from '../DTO/pageURLs/websiteURLs';
+import URLs from '../provider/pageURLs/websiteURLsProvider';
 import UserSteps from '../steps/userSteps';
 import MainPageSteps from '../steps/mainPageSteps';
 import BasePageSteps from '../steps/basePageSteps';
-import {
-	UserSelector,
-	UserValidData,
-} from '../DTO/inputDataValues/userInputData';
+import UserValidData from '../testData/inputDataValues/userInputData';
 import EditUserSteps from '../steps/editUserSteps';
 
 let userSteps: UserSteps;
@@ -27,7 +24,7 @@ test.beforeEach(async () => {
 	await basePageSteps.checkPageURL(URLs.addUserURL);
 
 	await userSteps.selectValueFromGenderDropdownInAddUserForm(
-		UserSelector.male
+		UserValidData.selectorMale
 	);
 	await userSteps.fillAllTextFieldsWithDataInAddUserForm(
 		UserValidData.nameMIN,
@@ -40,7 +37,7 @@ test.beforeEach(async () => {
 test('Check that new User is edited using valid data', async () => {
 	await mainPageSteps.clickEditNewUserButtonInUsersTable();
 	await editUserSteps.selectValueFromGenderDropdownInAddUserForm(
-		UserSelector.default
+		UserValidData.selectorDefault
 	);
 	await editUserSteps.fillAllTextFieldsWithDataInEditUserForm(
 		UserValidData.nameMAX,
@@ -49,7 +46,7 @@ test('Check that new User is edited using valid data', async () => {
 	await editUserSteps.clickUpdateButtonInEditUserForm();
 	await basePageSteps.checkPageURL(URLs.homeURL);
 	await mainPageSteps.checkThatUserWithValidDataIsAddedToUsersTableOnMainPage(
-		UserSelector.default,
+		UserValidData.selectorDefault,
 		UserValidData.nameMAX,
 		UserValidData.yearMAX
 	);

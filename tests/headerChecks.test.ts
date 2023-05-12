@@ -1,8 +1,8 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import URLs from '../DTO/pageURLs/websiteURLs';
-import PageTitleText from '../DTO/pageTitles/pageTitleText';
-import HeaderButtonText from '../DTO/buttons/headerButtonText';
+import URLs from '../provider/pageURLs/websiteURLsProvider';
+import PageTitlesText from '../testData/titlesText/pageTitleText';
+import HeaderButtonsText from '../testData/buttonsText/headerButtonText';
 import HeaderSteps from '../steps/headerSteps';
 import MainPageSteps from '../steps/mainPageSteps';
 import UserSteps from '../steps/userSteps';
@@ -29,34 +29,38 @@ test.beforeEach(async () => {
 });
 
 test('Check that buttons in header have text', async () => {
-	await headerSteps.checkThatLogoButtonInHeaderHasText(HeaderButtonText.logo);
-	await headerSteps.checkThatHomeButtonInHeaderHasText(HeaderButtonText.home);
+	await headerSteps.checkThatLogoButtonInHeaderHasText(
+		HeaderButtonsText.logo
+	);
+	await headerSteps.checkThatHomeButtonInHeaderHasText(
+		HeaderButtonsText.home
+	);
 	await headerSteps.checkThatAddUserButtonInHeaderHasText(
-		HeaderButtonText.addUser
+		HeaderButtonsText.addUser
 	);
 	await headerSteps.checkThatAddAddressButtonInHeaderHasText(
-		HeaderButtonText.addAddress
+		HeaderButtonsText.addAddress
 	);
 });
 
 test('Check redirections between the pages of Trainee website', async () => {
 	await headerSteps.clickAddUserButton();
 	await basePageSteps.checkPageURL(URLs.addUserURL);
-	await userSteps.checkThatUserPageTitleHasText(PageTitleText.addUser);
+	await userSteps.checkThatUserPageTitleHasText(PageTitlesText.addUser);
 
 	await headerSteps.clickLogoButton();
 	await basePageSteps.checkPageURL(URLs.homeURL);
-	await mainPageSteps.checkThatMainPageTitleHasText(PageTitleText.main);
+	await mainPageSteps.checkThatMainPageTitleHasText(PageTitlesText.main);
 
 	await headerSteps.clickAddAddressButton();
 	await basePageSteps.checkPageURL(URLs.addAddressURL);
 	await addressSteps.checkThatAddressPageTitleHasText(
-		PageTitleText.addAddress
+		PageTitlesText.addAddress
 	);
 
 	await headerSteps.clickHomeButton();
 	await basePageSteps.checkPageURL(URLs.homeURL);
-	await mainPageSteps.checkThatMainPageTitleHasText(PageTitleText.main);
+	await mainPageSteps.checkThatMainPageTitleHasText(PageTitlesText.main);
 });
 
 test.afterEach(async () => {

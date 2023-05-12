@@ -1,19 +1,18 @@
 import BasePage from './basePage';
-import PageTitle from '../identifiers/pageTitle';
-import ActionButton from '../identifiers/butttons/actionButton';
+import ActionButtons from '../identifiers/buttons/actionButtons';
 import AddUserForm from '../identifiers/forms/addUserForm';
 
 export default class AddUserPage extends BasePage {
 	public titleText() {
-		return this.page.locator(PageTitle.userPage);
+		return this.page.locator('//h1[text()="Add User"]');
 	}
 
 	public createButton() {
-		return this.page.getByTestId(ActionButton.create);
+		return this.page.getByTestId(ActionButtons.create);
 	}
 
 	public cancelButton() {
-		return this.page.getByTestId(ActionButton.cancel);
+		return this.page.getByTestId(ActionButtons.cancel);
 	}
 
 	public genderSelector() {

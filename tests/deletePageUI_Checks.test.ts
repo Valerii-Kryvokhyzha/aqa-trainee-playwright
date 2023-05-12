@@ -1,15 +1,12 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import URLs from '../DTO/pageURLs/websiteURLs';
+import URLs from '../provider/pageURLs/websiteURLsProvider';
 import UserSteps from '../steps/userSteps';
 import BasePageSteps from '../steps/basePageSteps';
-import PageTitleText from '../DTO/pageTitles/pageTitleText';
-import Color from '../DTO/colors';
-import ActionButtonText from '../DTO/buttons/actionButtonText';
-import {
-	UserSelector,
-	UserValidData,
-} from '../DTO/inputDataValues/userInputData';
+import PageTitlesText from '../testData/titlesText/pageTitleText';
+import Colours from '../provider/colours';
+import ActionButtonsText from '../testData/buttonsText/actionButtonText';
+import UserValidData from '../testData/inputDataValues/userInputData';
 import DeleteSteps from '../steps/deleteConfirmationSteps';
 import MainPageSteps from '../steps/mainPageSteps';
 
@@ -30,7 +27,7 @@ test.beforeEach(async () => {
 	await basePageSteps.checkPageURL(URLs.addUserURL);
 
 	await userSteps.selectValueFromGenderDropdownInAddUserForm(
-		UserSelector.male
+		UserValidData.selectorMale
 	);
 	await userSteps.fillAllTextFieldsWithDataInAddUserForm(
 		UserValidData.nameMIN,
@@ -43,16 +40,16 @@ test.beforeEach(async () => {
 
 test('Check title and action buttons properties on "Delete User" page', async () => {
 	await deletePageSteps.checkThatDeletePageTitleHasText(
-		PageTitleText.deleteUser
+		PageTitlesText.deleteUser
 	);
-	await deletePageSteps.checkThatDeletePageTitleHasTextColor(Color.black);
+	await deletePageSteps.checkThatDeletePageTitleHasTextColor(Colours.black);
 	await deletePageSteps.checkThatYesButtonHasProperties(
-		ActionButtonText.yesBtn,
-		Color.red
+		ActionButtonsText.yesBtn,
+		Colours.red
 	);
 	await userSteps.checkThatCancelUserCreationButtonHasProperties(
-		ActionButtonText.cancelBtn,
-		Color.grey
+		ActionButtonsText.cancelBtn,
+		Colours.grey
 	);
 });
 

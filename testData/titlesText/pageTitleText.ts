@@ -1,4 +1,4 @@
-export default class PageTitleText {
+export default class PageTitlesText {
 	static main = 'Users and Addresses';
 	static addUser = 'Add User';
 	static addAddress = 'Add Address';

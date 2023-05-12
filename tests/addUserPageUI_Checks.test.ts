@@ -1,13 +1,13 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import URLs from '../DTO/pageURLs/websiteURLs';
+import URLs from '../provider/pageURLs/websiteURLsProvider';
 import UserSteps from '../steps/userSteps';
 import BasePageSteps from '../steps/basePageSteps';
-import UserValidationMessage from '../DTO/formValidationMessages/userValidationMessages';
-import PageTitleText from '../DTO/pageTitles/pageTitleText';
-import Color from '../DTO/colors';
-import ActionButtonText from '../DTO/buttons/actionButtonText';
-import {UserInvalidData} from '../DTO/inputDataValues/userInputData';
+import UserValidationMessages from '../testData/formValidationMessages/userValidationMessages';
+import PageTitlesText from '../testData/titlesText/pageTitleText';
+import Colours from '../provider/colours';
+import ActionButtonsText from '../testData/buttonsText/actionButtonText';
+import {UserInvalidData} from '../testData/inputDataValues/userInputData';
 
 let userSteps: UserSteps;
 let basePageSteps: BasePageSteps;
@@ -23,26 +23,26 @@ test.beforeEach(async () => {
 });
 
 test('Check title properties on "Add User" page', async () => {
-	await userSteps.checkThatUserPageTitleHasText(PageTitleText.addUser);
-	await userSteps.checkThatUserPageTitleHasTextColor(Color.black);
+	await userSteps.checkThatUserPageTitleHasText(PageTitlesText.addUser);
+	await userSteps.checkThatUserPageTitleHasTextColor(Colours.black);
 });
 
 test('Check action buttons properties in "Add User" form', async () => {
 	await userSteps.checkThatCreateUserButtonHasProperties(
-		ActionButtonText.createBtn,
-		Color.blue
+		ActionButtonsText.createBtn,
+		Colours.blue
 	);
 	await userSteps.checkThatCancelUserCreationButtonHasProperties(
-		ActionButtonText.cancelBtn,
-		Color.grey
+		ActionButtonsText.cancelBtn,
+		Colours.grey
 	);
 });
 
 test('Check validation messages in "Add User" form with empty fields', async () => {
 	await userSteps.clickCreateButtonInAddUserForm();
 	await userSteps.checkThatAllValidationMessagesInAddUserFormHaveText(
-		UserValidationMessage.nameEmpty,
-		UserValidationMessage.yearEmpty
+		UserValidationMessages.nameEmpty,
+		UserValidationMessages.yearEmpty
 	);
 });
 
@@ -53,8 +53,8 @@ test('Check validation messages in "Add User" form with invalid data', async () 
 	);
 	await userSteps.clickCreateButtonInAddUserForm();
 	await userSteps.checkThatAllValidationMessagesInAddUserFormHaveText(
-		UserValidationMessage.nameShort,
-		UserValidationMessage.yearIncorrect
+		UserValidationMessages.nameShort,
+		UserValidationMessages.yearIncorrect
 	);
 });
 

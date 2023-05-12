@@ -1,14 +1,12 @@
-import PageTitle from '../identifiers/pageTitle';
-import MainTable from '../identifiers/tables/mainTable';
-import TableButton from '../identifiers/butttons/mainTableButtons';
-
+import MainTable from '../identifiers/tableFields/mainTable';
 import BasePage from './basePage';
-import UsersTable from '../identifiers/tables/usersTable';
-import AddressesTable from '../identifiers/tables/addressesTable';
+import UsersTable from '../identifiers/tableFields/usersTable';
+import AddressesTable from '../identifiers/tableFields/addressesTable';
+import TableButtons from '../identifiers/buttons/mainTableButtons';
 
 export default class MainPage extends BasePage {
 	public titleText() {
-		return this.page.locator(PageTitle.mainPage);
+		return this.page.locator('//h1[text()="Users and Addresses"]');
 	}
 
 	public usersTable() {
@@ -16,19 +14,19 @@ export default class MainPage extends BasePage {
 	}
 
 	public usersTableHeader() {
-		return this.usersTable().locator(MainTable.subheader);
+		return this.usersTable().locator('//th[@colspan="5"]');
 	}
 
-	public addedUserGenderInTable() {
-		return this.page.locator(UsersTable.addedUserGender);
+	public lastUserGenderInTable() {
+		return this.page.getByTestId(UsersTable.userGender).last();
 	}
 
-	public addedUserNameInTable() {
-		return this.page.locator(UsersTable.addedUserName);
+	public lastUserNameInTable() {
+		return this.page.getByTestId(UsersTable.userName).last();
 	}
 
-	public addedUserYearInTable() {
-		return this.page.locator(UsersTable.addedUserYear);
+	public lastUserYearInTable() {
+		return this.page.getByTestId(UsersTable.userYear).last();
 	}
 
 	public checkRowInUsersTableWithUserName(userName: string) {
@@ -37,12 +35,12 @@ export default class MainPage extends BasePage {
 		);
 	}
 
-	public editNewUserButton() {
-		return this.page.locator(TableButton.lastEditUserBtn);
+	public editLastUserButton() {
+		return this.usersTable().getByTestId(TableButtons.editButton).last();
 	}
 
-	public deleteNewUserButton() {
-		return this.editNewUserButton().locator(TableButton.lastDeleteUserBtn);
+	public deleteLastUserButton() {
+		return this.usersTable().getByTestId(TableButtons.deleteButton).last();
 	}
 
 	public addressesTable() {
@@ -50,23 +48,23 @@ export default class MainPage extends BasePage {
 	}
 
 	public addressesTableHeader() {
-		return this.addressesTable().locator(MainTable.subheader);
+		return this.addressesTable().locator('//th[@colspan="5"]');
 	}
 
-	public addedAddressStreetInTable() {
-		return this.page.locator(AddressesTable.addedAddressStreet);
+	public lastAddressStreetInTable() {
+		return this.page.getByTestId(AddressesTable.streetAddress).last();
 	}
 
-	public addedAddressCityInTable() {
-		return this.page.locator(AddressesTable.addedAddressCity);
+	public lastAddressCityInTable() {
+		return this.page.getByTestId(AddressesTable.city).last();
 	}
 
-	public addedAddressStateInTable() {
-		return this.page.locator(AddressesTable.addedAddressState);
+	public lastAddressStateInTable() {
+		return this.page.getByTestId(AddressesTable.state).last();
 	}
 
-	public addedAddressZipCodeInTable() {
-		return this.page.locator(AddressesTable.addedAddressZipCode);
+	public lastAddressZipCodeInTable() {
+		return this.page.getByTestId(AddressesTable.zipCode).last();
 	}
 
 	public checkRowInAddressesTableWithAddressStreet(street: string) {
@@ -75,7 +73,9 @@ export default class MainPage extends BasePage {
 		);
 	}
 
-	public deleteNewAddressButton() {
-		return this.addressesTable().locator(TableButton.lastDeleteAddressBtn);
+	public deleteLastAddressButton() {
+		return this.addressesTable()
+			.getByTestId(TableButtons.deleteButton)
+			.last();
 	}
 }

@@ -1,11 +1,11 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import URLs from '../DTO/pageURLs/websiteURLs';
+import URLs from '../provider/pageURLs/websiteURLsProvider';
 import MainPageSteps from '../steps/mainPageSteps';
-import PageTitleText from '../DTO/pageTitles/pageTitleText';
-import TableTitleText from '../DTO/pageTitles/tableTitleText';
+import PageTitlesText from '../testData/titlesText/pageTitleText';
+import TableTitlesText from '../testData/titlesText/tableTitleText';
 import BasePageSteps from '../steps/basePageSteps';
-import Color from '../DTO/colors';
+import Colours from '../provider/colours';
 
 let mainPageSteps: MainPageSteps;
 let basePageSteps: BasePageSteps;
@@ -21,18 +21,18 @@ test.beforeEach(async () => {
 });
 
 test('Check that "Users and Addresses" title is shown on main page', async () => {
-	await mainPageSteps.checkThatMainPageTitleHasText(PageTitleText.main);
-	await mainPageSteps.checkThatMainPageTitleHasTextColor(Color.black);
+	await mainPageSteps.checkThatMainPageTitleHasText(PageTitlesText.main);
+	await mainPageSteps.checkThatMainPageTitleHasTextColor(Colours.black);
 });
 
 test('Check that table headers are displayed on main page', async () => {
 	await mainPageSteps.checkThatUsersTableHeaderHasProperties(
-		TableTitleText.users,
-		Color.black
+		TableTitlesText.users,
+		Colours.black
 	);
 	await mainPageSteps.checkThatAddressesTableHeaderHasProperties(
-		TableTitleText.addresses,
-		Color.black
+		TableTitlesText.addresses,
+		Colours.black
 	);
 });
 

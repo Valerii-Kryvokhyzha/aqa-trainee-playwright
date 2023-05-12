@@ -1,13 +1,10 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import URLs from '../DTO/pageURLs/websiteURLs';
+import URLs from '../provider/pageURLs/websiteURLsProvider';
 import UserSteps from '../steps/userSteps';
 import MainPageSteps from '../steps/mainPageSteps';
 import BasePageSteps from '../steps/basePageSteps';
-import {
-	UserSelector,
-	UserValidData,
-} from '../DTO/inputDataValues/userInputData';
+import UserValidData from '../testData/inputDataValues/userInputData';
 
 let userSteps: UserSteps;
 let mainPageSteps: MainPageSteps;
@@ -26,7 +23,7 @@ test.beforeEach(async () => {
 
 test('Check that new User is created using valid data on "Add User" page', async () => {
 	await userSteps.selectValueFromGenderDropdownInAddUserForm(
-		UserSelector.male
+		UserValidData.selectorMale
 	);
 	await userSteps.fillAllTextFieldsWithDataInAddUserForm(
 		UserValidData.nameMIN,
@@ -35,7 +32,7 @@ test('Check that new User is created using valid data on "Add User" page', async
 	await userSteps.clickCreateButtonInAddUserForm();
 	await basePageSteps.checkPageURL(URLs.homeURL);
 	await mainPageSteps.checkThatUserWithValidDataIsAddedToUsersTableOnMainPage(
-		UserSelector.male,
+		UserValidData.selectorMale,
 		UserValidData.nameMIN,
 		UserValidData.yearMIN
 	);

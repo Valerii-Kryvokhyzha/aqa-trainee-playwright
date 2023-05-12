@@ -1,23 +1,22 @@
-import ActionButton from '../identifiers/butttons/actionButton';
-import EditUserForm from '../identifiers/forms/editUserForm';
-import PageTitle from '../identifiers/pageTitle';
 import BasePage from './basePage';
+import EditUserForm from '../identifiers/forms/editUserForm';
+import ActionButtons from '../identifiers/buttons/actionButtons';
 
 export default class EditUserPage extends BasePage {
 	public titleText() {
-		return this.page.locator(PageTitle.editUserPage);
+		return this.page.locator('//h1[text()="Edit User"]');
 	}
 
 	public updateButton() {
-		return this.page.getByTestId(ActionButton.update);
+		return this.page.getByTestId(ActionButtons.update);
 	}
 
 	public cancelButton() {
-		return this.page.getByTestId(ActionButton.cancel);
+		return this.page.getByTestId(ActionButtons.cancel);
 	}
 
 	public chooseFileButton() {
-		return this.page.locator(EditUserForm.chooseFileButton);
+		return this.page.locator('//input[@id="ProfileImage"]');
 	}
 
 	public genderSelector() {
