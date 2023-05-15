@@ -1,15 +1,26 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import {URLs} from '../base/pageURLs/websiteURLs';
-import {UserValidationMessage} from '../base/validationMessages/userValidationMessages';
-import {pageTitles, titleProperties} from '../base/pageTextTitles/textTitle';
-import {ButtonColor, ButtonText} from '../base/buttons/buttonProperties';
-import {UserInvalidData} from '../base/inputDataValues/userInputData';
+import WebsiteURLs from '../provider/pageURLs/websiteURLs';
 import UserSteps from '../steps/userSteps';
 import BasePageSteps from '../steps/basePageSteps';
+import PageTitlesText from '../testData/titlesText/pageTitlesText';
+import Colours from '../provider/colours';
+import ActionButtonsText from '../testData/buttonsText/actionButtonsText';
+import UserValidData from '../testData/inputDataValues/userValidData';
+import {
+	userEmptyFieldsValidationMessagesDTO,
+	userShortValidationMessagesDTO,
+} from '../dto/userValidationMessagesDto';
+import {userDTO} from '../dto/userDto';
 
 let userSteps: UserSteps;
 let basePageSteps: BasePageSteps;
+
+userDTO.createUser(
+	UserValidData.selectorDefault,
+	UserValidData.nameMIN.substring(0, 2),
+	UserValidData.year.substring(0, 3)
+);
 
 test.beforeEach(async () => {
 	await driver.start();
@@ -17,45 +28,38 @@ test.beforeEach(async () => {
 	userSteps = new UserSteps();
 	basePageSteps = new BasePageSteps(driver.page);
 
-	await basePageSteps.goToPage(URLs.addUserURL);
-	await basePageSteps.checkPageURL(URLs.addUserURL);
+	await basePageSteps.goToPage(WebsiteURLs.addUserURL);
+	await basePageSteps.checkPageURL(WebsiteURLs.addUserURL);
 });
 
 test('Check title properties on "Add User" page', async () => {
-	await userSteps.checkThatUserPageTitleHasText(pageTitles.addUser);
-	await userSteps.checkThatUserPageTitleHasTextColor(
-		titleProperties.colorBlack
-	);
+	await userSteps.checkThatUserPageTitleHasText(PageTitlesText.addUser);
+	await userSteps.checkThatUserPageTitleHasTextColor(Colours.black);
 });
 
 test('Check action buttons properties in "Add User" form', async () => {
 	await userSteps.checkThatCreateUserButtonHasProperties(
-		ButtonText.createBtn,
-		ButtonColor.createBtn
+		ActionButtonsText.createBtn,
+		Colours.blue
 	);
 	await userSteps.checkThatCancelUserCreationButtonHasProperties(
-		ButtonText.cancelBtn,
-		ButtonColor.cancelBtn
+		ActionButtonsText.cancelBtn,
+		Colours.grey
 	);
 });
 
 test('Check validation messages in "Add User" form with empty fields', async () => {
 	await userSteps.clickCreateButtonInAddUserForm();
-	await userSteps.checkThatAllValidationMessagesInAdduserFormHaveText(
-		UserValidationMessage.nameEmpty,
-		UserValidationMessage.yearEmpty
+	await userSteps.checkThatAllValidationMessagesInAddUserFormHaveText(
+		userEmptyFieldsValidationMessagesDTO
 	);
 });
 
 test('Check validation messages in "Add User" form with invalid data', async () => {
-	await userSteps.fillAllTextFieldsWithDataInAddUserForm(
-		UserInvalidData.nameMIN,
-		UserInvalidData.yearMIN
-	);
+	await userSteps.fillAllTextFieldsWithDataInAddUserForm(userDTO);
 	await userSteps.clickCreateButtonInAddUserForm();
-	await userSteps.checkThatAllValidationMessagesInAdduserFormHaveText(
-		UserValidationMessage.nameShort,
-		UserValidationMessage.yearIncorrect
+	await userSteps.checkThatAllValidationMessagesInAddUserFormHaveText(
+		userShortValidationMessagesDTO
 	);
 });
 

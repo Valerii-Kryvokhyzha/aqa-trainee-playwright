@@ -1,6 +1,6 @@
 import {expect} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import Header from '../base/elements/header';
+import Header from '../base/elements/header/header';
 
 export default class HeaderSteps {
 	public header: Header;

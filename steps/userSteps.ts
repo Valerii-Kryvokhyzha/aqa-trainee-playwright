@@ -1,6 +1,8 @@
 import {expect} from '@playwright/test';
 import {driver} from '../base/driver/driver';
 import AddUserPage from '../pages/addUserPage';
+import UserDto from '../dto/userDto';
+import UserValidationMessagesDto from '../dto/userValidationMessagesDto';
 
 export default class UserSteps {
 	public addUserPage: AddUserPage;
@@ -9,18 +11,13 @@ export default class UserSteps {
 		this.addUserPage = new AddUserPage(driver.page);
 	}
 
-	public async fillAllTextFieldsWithDataInAddUserForm(
-		userName: string,
-		year: string
-	) {
-		await this.addUserPage.userNameInput().fill(userName);
-		await this.addUserPage.yearOfBirthInput().fill(year);
+	public async fillAllTextFieldsWithDataInAddUserForm(user: UserDto) {
+		await this.addUserPage.userNameInput().fill(user.name);
+		await this.addUserPage.yearOfBirthInput().fill(user.year);
 	}
 
-	public async selectValueFromGenderDropdownInAddUserForm(
-		selectorValue: string
-	) {
-		await this.addUserPage.genderSelector().selectOption(selectorValue);
+	public async selectValueFromGenderDropdownInAddUserForm(user: UserDto) {
+		await this.addUserPage.genderSelector().selectOption(user.gender);
 	}
 
 	public async clickCreateButtonInAddUserForm() {
@@ -60,15 +57,14 @@ export default class UserSteps {
 		);
 	}
 
-	public async checkThatAllValidationMessagesInAdduserFormHaveText(
-		nameValidationMessage: string,
-		yearValidationMessage: string
+	public async checkThatAllValidationMessagesInAddUserFormHaveText(
+		validationMessage: UserValidationMessagesDto
 	) {
 		await expect(this.addUserPage.userNameValidationMessage()).toHaveText(
-			`${nameValidationMessage}`
+			`${validationMessage.nameMessage}`
 		);
 		await expect(
 			this.addUserPage.yearOfBirthValidationMessage()
-		).toHaveText(`${yearValidationMessage}`);
+		).toHaveText(`${validationMessage.yearMessage}`);
 	}
 }

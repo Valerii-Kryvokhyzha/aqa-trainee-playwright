@@ -1,4 +1,9 @@
+import MainTable from '../identifiers/tableFields/mainTable';
 import BasePage from './basePage';
+import UsersTable from '../identifiers/tableFields/usersTable';
+import AddressesTable from '../identifiers/tableFields/addressesTable';
+import TableButtons from '../identifiers/buttons/mainTableButtons';
+import UserDto from '../dto/userDto';
 
 export default class MainPage extends BasePage {
 	public titleText() {
@@ -6,78 +11,84 @@ export default class MainPage extends BasePage {
 	}
 
 	public usersTable() {
-		return this.page.locator('//table[@data-id="table-Users"]');
+		return this.page.getByTestId(MainTable.usersTable);
 	}
 
 	public usersTableHeader() {
 		return this.usersTable().locator('//th[@colspan="5"]');
 	}
 
-	public addedUserGenderInTable() {
-		return this.page.locator('//tr[last()]/td[@data-id="td-Gender"]');
+	public lastUserGenderInTable() {
+		return this.page.getByTestId(UsersTable.userGender).last();
 	}
 
-	public addedUserNameInTable() {
-		return this.page.locator('//tr[last()]/td[@data-id="td-UserName"]');
+	public lastUserNameInTable() {
+		return this.page.getByTestId(UsersTable.userName).last();
 	}
 
-	public addedUserYearInTable() {
-		return this.page.locator('//tr[last()]/td[@data-id="td-YearOfBirth"]');
+	public lastUserYearInTable() {
+		return this.page.getByTestId(UsersTable.userYear).last();
 	}
 
-	public checkRowInTableWithUserName(name: string) {
-		return this.page.locator(`//td[contains(text(),"${name}")]/parent::tr`);
-	}
-
-	public editNewUserButton() {
-		return this.page.locator('//tr[last()]/.//a[@data-id="button-Edit"]');
-	}
-
-	public deleteNewUserButton() {
-		return this.editNewUserButton().locator(
-			'//following-sibling::a[@data-id="button-Delete"]'
+	public checkRowInUsersTableWithUserName(userName: string) {
+		return this.page.locator(
+			`//td[contains(text(),"${userName}")]/parent::tr`
 		);
 	}
 
-	public addressTable() {
-		return this.page.locator('//table[@data-id="table-Addresses"]');
+	public editLastUserButton() {
+		return this.usersTable().getByTestId(TableButtons.editButton).last();
+	}
+
+	public editUserButton(userName: UserDto) {
+		return this.page.locator(
+			`//td[contains(text(),"${userName.name}")]/following-sibling::td/a[@data-id="button-Edit"]`
+		);
+	}
+
+	public deleteLastUserButton() {
+		return this.usersTable().getByTestId(TableButtons.deleteButton).last();
+	}
+
+	public deleteUserButton(userName: UserDto) {
+		return this.page.locator(
+			`//td[contains(text(),"${userName.name}")]/following-sibling::td/a[@data-id="button-Delete"]`
+		);
+	}
+
+	public addressesTable() {
+		return this.page.getByTestId(MainTable.addressesTable);
 	}
 
 	public addressesTableHeader() {
-		return this.addressTable().locator('//th[@colspan="5"]');
+		return this.addressesTable().locator('//th[@colspan="5"]');
 	}
 
-	public addedAddressStreetInTable() {
+	public lastAddressStreetInTable() {
+		return this.page.getByTestId(AddressesTable.streetAddress).last();
+	}
+
+	public lastAddressCityInTable() {
+		return this.page.getByTestId(AddressesTable.city).last();
+	}
+
+	public lastAddressStateInTable() {
+		return this.page.getByTestId(AddressesTable.state).last();
+	}
+
+	public lastAddressZipCodeInTable() {
+		return this.page.getByTestId(AddressesTable.zipCode).last();
+	}
+
+	public checkRowInAddressesTableWithAddressStreet(street: string) {
 		return this.page.locator(
-			'//tr[last()]/td[@data-id="td-StreetAddress"]'
+			`//td[contains(text(),"${street}")]/parent::tr`
 		);
 	}
 
-	public addedAddressCityInTable() {
-		return this.page.locator('//tr[last()]/td[@data-id="td-City"]');
-	}
-
-	public addedAddressStateInTable() {
-		return this.page.locator('//tr[last()]/td[@data-id="td-State"]');
-	}
-
-	public addedAddressZipCodeInTable() {
-		return this.page.locator('//tr[last()]/td[@data-id="td-ZipCode"]');
-	}
-
-	public checkAddressSteetInTable(street: string) {
-		return this.page.locator(
-			`//tr[last()]/td[contains(text(),"${street}")]`
-		);
-	}
-
-	public deleteNewAddressButton() {
-		return this.addressTable().locator(
-			'//.//tr[last()]/.//a[@data-id="button-Delete"]'
-		);
-	}
-
-	public delYesConfButton() {
-		return this.page.locator('//button[@data-id="button-Yes"]');
+	public deleteLastAddressButton() {
+		return this.addressesTable()
+			.getByTestId(TableButtons.deleteButton)
+			.last();
 	}
 }

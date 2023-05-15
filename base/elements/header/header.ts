@@ -14,8 +14,6 @@ export default class Header extends BaseHeader {
 	}
 
 	public addAddressButton() {
-		return this.page.getByRole('link', {
-			name: /Add Address/,
-		});
+		return this.page.getByRole('link', {name: /Add Address/});
 	}
 }
