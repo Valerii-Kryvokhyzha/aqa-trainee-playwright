@@ -1,4 +1,4 @@
-import AddressValidData from '../testData/inputDataValues/addressInputData';
+import AddressValidData from '../testData/inputDataValues/addressValidData';
 
 export default class AddressDto {
 	street: string;

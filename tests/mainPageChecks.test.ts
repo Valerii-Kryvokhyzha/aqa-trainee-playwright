@@ -1,9 +1,9 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import URLs from '../provider/pageURLs/websiteURLsPath';
+import WebsiteURLs from '../provider/pageURLs/websiteURLs';
 import MainPageSteps from '../steps/mainPageSteps';
-import PageTitlesText from '../testData/titlesText/pageTitleText';
-import TableTitlesText from '../testData/titlesText/tableTitleText';
+import PageTitlesText from '../testData/titlesText/pageTitlesText';
+import TableTitlesText from '../testData/titlesText/tableTitlesText';
 import BasePageSteps from '../steps/basePageSteps';
 import Colours from '../provider/colours';
 
@@ -16,8 +16,8 @@ test.beforeEach(async () => {
 	mainPageSteps = new MainPageSteps();
 	basePageSteps = new BasePageSteps(driver.page);
 
-	await basePageSteps.goToPage(URLs.homeURL);
-	await basePageSteps.checkPageURL(URLs.homeURL);
+	await basePageSteps.goToPage(WebsiteURLs.homeURL);
+	await basePageSteps.checkPageURL(WebsiteURLs.homeURL);
 });
 
 test('Check that "Users and Addresses" title is shown on main page', async () => {

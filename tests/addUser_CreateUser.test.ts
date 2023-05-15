@@ -1,6 +1,6 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import URLs from '../provider/pageURLs/websiteURLsPath';
+import WebsiteURLs from '../provider/pageURLs/websiteURLs';
 import UserSteps from '../steps/userSteps';
 import MainPageSteps from '../steps/mainPageSteps';
 import BasePageSteps from '../steps/basePageSteps';
@@ -17,8 +17,8 @@ test.beforeEach(async () => {
 	mainPageSteps = new MainPageSteps();
 	basePageSteps = new BasePageSteps(driver.page);
 
-	await basePageSteps.goToPage(URLs.addUserURL);
-	await basePageSteps.checkPageURL(URLs.addUserURL);
+	await basePageSteps.goToPage(WebsiteURLs.addUserURL);
+	await basePageSteps.checkPageURL(WebsiteURLs.addUserURL);
 });
 
 test('Check that new User is created using valid data on "Add User" page', async () => {
@@ -29,7 +29,7 @@ test('Check that new User is created using valid data on "Add User" page', async
 		defaultUserWithValidData
 	);
 	await userSteps.clickCreateButtonInAddUserForm();
-	await basePageSteps.checkPageURL(URLs.homeURL);
+	await basePageSteps.checkPageURL(WebsiteURLs.homeURL);
 	await mainPageSteps.checkThatUserWithValidDataIsAddedToUsersTableOnMainPage(
 		defaultUserWithValidData
 	);

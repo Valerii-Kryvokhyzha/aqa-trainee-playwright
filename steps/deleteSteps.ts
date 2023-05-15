@@ -1,6 +1,6 @@
 import {expect} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import DeletePage from '../pages/deleteConfirmationPage';
+import DeletePage from '../pages/deletePage';
 
 export default class DeleteSteps {
 	public deletePage: DeletePage;

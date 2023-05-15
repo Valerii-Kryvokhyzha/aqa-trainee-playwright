@@ -1,13 +1,13 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import URLs from '../provider/pageURLs/websiteURLsPath';
+import WebsiteURLs from '../provider/pageURLs/websiteURLs';
 import AddressSteps from '../steps/addressSteps';
 import BasePageSteps from '../steps/basePageSteps';
-import AddressValidData from '../testData/inputDataValues/addressInputData';
+import AddressValidData from '../testData/inputDataValues/addressValidData';
 
-import PageTitlesText from '../testData/titlesText/pageTitleText';
+import PageTitlesText from '../testData/titlesText/pageTitlesText';
 import Colours from '../provider/colours';
-import ActionButtonsText from '../testData/buttonsText/actionButtonText';
+import ActionButtonsText from '../testData/buttonsText/actionButtonsText';
 import {addressDTO} from '../dto/addressDto';
 import {
 	addressEmptyFieldsValidationMessagesDTO,
@@ -30,8 +30,8 @@ test.beforeEach(async () => {
 	addressSteps = new AddressSteps();
 	basePageSteps = new BasePageSteps(driver.page);
 
-	await basePageSteps.goToPage(URLs.addAddressURL);
-	await basePageSteps.checkPageURL(URLs.addAddressURL);
+	await basePageSteps.goToPage(WebsiteURLs.addAddressURL);
+	await basePageSteps.checkPageURL(WebsiteURLs.addAddressURL);
 });
 
 test('Check title properties on "Add Address" page', async () => {

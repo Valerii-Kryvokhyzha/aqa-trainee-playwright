@@ -1,12 +1,12 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import URLs from '../provider/pageURLs/websiteURLsPath';
+import WebsiteURLs from '../provider/pageURLs/websiteURLs';
 import UserSteps from '../steps/userSteps';
 import BasePageSteps from '../steps/basePageSteps';
-import PageTitlesText from '../testData/titlesText/pageTitleText';
+import PageTitlesText from '../testData/titlesText/pageTitlesText';
 import Colours from '../provider/colours';
-import ActionButtonsText from '../testData/buttonsText/actionButtonText';
-import UserValidData from '../testData/inputDataValues/userInputData';
+import ActionButtonsText from '../testData/buttonsText/actionButtonsText';
+import UserValidData from '../testData/inputDataValues/userValidData';
 import {
 	userEmptyFieldsValidationMessagesDTO,
 	userShortValidationMessagesDTO,
@@ -28,8 +28,8 @@ test.beforeEach(async () => {
 	userSteps = new UserSteps();
 	basePageSteps = new BasePageSteps(driver.page);
 
-	await basePageSteps.goToPage(URLs.addUserURL);
-	await basePageSteps.checkPageURL(URLs.addUserURL);
+	await basePageSteps.goToPage(WebsiteURLs.addUserURL);
+	await basePageSteps.checkPageURL(WebsiteURLs.addUserURL);
 });
 
 test('Check title properties on "Add User" page', async () => {

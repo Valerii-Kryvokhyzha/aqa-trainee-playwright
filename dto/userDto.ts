@@ -1,4 +1,4 @@
-import UserValidData from '../testData/inputDataValues/userInputData';
+import UserValidData from '../testData/inputDataValues/userValidData';
 
 export default class UserDto {
 	gender: string;

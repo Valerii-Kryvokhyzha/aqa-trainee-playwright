@@ -1,6 +1,6 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import URLs from '../provider/pageURLs/websiteURLsPath';
+import WebsiteURLs from '../provider/pageURLs/websiteURLs';
 import AddressSteps from '../steps/addressSteps';
 import MainPageSteps from '../steps/mainPageSteps';
 import BasePageSteps from '../steps/basePageSteps';
@@ -17,8 +17,8 @@ test.beforeEach(async () => {
 	mainPageSteps = new MainPageSteps();
 	basePageSteps = new BasePageSteps(driver.page);
 
-	await basePageSteps.goToPage(URLs.addAddressURL);
-	await basePageSteps.checkPageURL(URLs.addAddressURL);
+	await basePageSteps.goToPage(WebsiteURLs.addAddressURL);
+	await basePageSteps.checkPageURL(WebsiteURLs.addAddressURL);
 });
 
 test('Check that new Address is created using valid data on "Add Address" page', async () => {
@@ -26,7 +26,7 @@ test('Check that new Address is created using valid data on "Add Address" page',
 		defaultAddressWithValidData
 	);
 	await addressSteps.clickCreateButtonInAddAddressForm();
-	await basePageSteps.checkPageURL(URLs.homeURL);
+	await basePageSteps.checkPageURL(WebsiteURLs.homeURL);
 	await mainPageSteps.checkThatAddressWithValidDataIsAddedToAddressesTableOnMainPage(
 		defaultAddressWithValidData
 	);

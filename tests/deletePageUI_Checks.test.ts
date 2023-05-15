@@ -1,13 +1,13 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import URLs from '../provider/pageURLs/websiteURLsPath';
+import WebsiteURLs from '../provider/pageURLs/websiteURLs';
 import UserSteps from '../steps/userSteps';
 import BasePageSteps from '../steps/basePageSteps';
-import PageTitlesText from '../testData/titlesText/pageTitleText';
+import PageTitlesText from '../testData/titlesText/pageTitlesText';
 import Colours from '../provider/colours';
-import ActionButtonsText from '../testData/buttonsText/actionButtonText';
-import UserValidData from '../testData/inputDataValues/userInputData';
-import DeleteSteps from '../steps/deleteConfirmationSteps';
+import ActionButtonsText from '../testData/buttonsText/actionButtonsText';
+import UserValidData from '../testData/inputDataValues/userValidData';
+import DeleteSteps from '../steps/deleteSteps';
 import MainPageSteps from '../steps/mainPageSteps';
 import {userDTO} from '../dto/userDto';
 import {sessionValue} from '../runtimeVariables/sessionValue';
@@ -25,8 +25,8 @@ test.beforeEach(async () => {
 	mainPageSteps = new MainPageSteps();
 	basePageSteps = new BasePageSteps(driver.page);
 
-	await basePageSteps.goToPage(URLs.addUserURL);
-	await basePageSteps.checkPageURL(URLs.addUserURL);
+	await basePageSteps.goToPage(WebsiteURLs.addUserURL);
+	await basePageSteps.checkPageURL(WebsiteURLs.addUserURL);
 
 	userDTO.createUser(
 		UserValidData.selectorFemale,
@@ -37,7 +37,7 @@ test.beforeEach(async () => {
 	await userSteps.selectValueFromGenderDropdownInAddUserForm(userDTO);
 	await userSteps.fillAllTextFieldsWithDataInAddUserForm(userDTO);
 	await userSteps.clickCreateButtonInAddUserForm();
-	await basePageSteps.checkPageURL(URLs.homeURL);
+	await basePageSteps.checkPageURL(WebsiteURLs.homeURL);
 	await mainPageSteps.clickDeleteUserButtonInUsersTable(userDTO);
 });
 

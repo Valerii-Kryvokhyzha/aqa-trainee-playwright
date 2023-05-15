@@ -1,7 +1,7 @@
 import {expect} from '@playwright/test';
 import {driver} from '../base/driver/driver';
 import MainPage from '../pages/mainPage';
-import DeletePage from '../pages/deleteConfirmationPage';
+import DeletePage from '../pages/deletePage';
 import UserDto from '../dto/userDto';
 import AddressDto from '../dto/addressDto';
 
