@@ -3,6 +3,7 @@ import BasePage from './basePage';
 import UsersTable from '../identifiers/tableFields/usersTable';
 import AddressesTable from '../identifiers/tableFields/addressesTable';
 import TableButtons from '../identifiers/buttons/mainTableButtons';
+import UserDto from '../dto/userDto';
 
 export default class MainPage extends BasePage {
 	public titleText() {
@@ -39,8 +40,20 @@ export default class MainPage extends BasePage {
 		return this.usersTable().getByTestId(TableButtons.editButton).last();
 	}
 
+	public editUserButton(userName: UserDto) {
+		return this.page.locator(
+			`//td[contains(text(),"${userName.name}")]/following-sibling::td/a[@data-id="button-Edit"]`
+		);
+	}
+
 	public deleteLastUserButton() {
 		return this.usersTable().getByTestId(TableButtons.deleteButton).last();
+	}
+
+	public deleteUserButton(userName: UserDto) {
+		return this.page.locator(
+			`//td[contains(text(),"${userName.name}")]/following-sibling::td/a[@data-id="button-Delete"]`
+		);
 	}
 
 	public addressesTable() {

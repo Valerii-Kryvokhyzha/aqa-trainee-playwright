@@ -1,6 +1,7 @@
 import {expect} from '@playwright/test';
 import {driver} from '../base/driver/driver';
 import EditUserPage from '../pages/editUserPage';
+import UserDto from '../dto/userDto';
 
 export default class EditUserSteps {
 	public editUserPage: EditUserPage;
@@ -9,18 +10,13 @@ export default class EditUserSteps {
 		this.editUserPage = new EditUserPage(driver.page);
 	}
 
-	public async fillAllTextFieldsWithDataInEditUserForm(
-		userName: string,
-		year: string
-	) {
-		await this.editUserPage.userNameInput().fill(userName);
-		await this.editUserPage.yearOfBirthInput().fill(year);
+	public async fillAllTextFieldsWithDataInEditUserForm(user: UserDto) {
+		await this.editUserPage.userNameInput().fill(user.name);
+		await this.editUserPage.yearOfBirthInput().fill(user.year);
 	}
 
-	public async selectValueFromGenderDropdownInAddUserForm(
-		selectorValue: string
-	) {
-		await this.editUserPage.genderSelector().selectOption(selectorValue);
+	public async selectValueFromGenderDropdownInAddUserForm(user: UserDto) {
+		await this.editUserPage.genderSelector().selectOption(user.gender);
 	}
 
 	public async clickUpdateButtonInEditUserForm() {

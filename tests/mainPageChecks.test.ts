@@ -1,6 +1,6 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import URLs from '../provider/pageURLs/websiteURLsProvider';
+import URLs from '../provider/pageURLs/websiteURLsPath';
 import MainPageSteps from '../steps/mainPageSteps';
 import PageTitlesText from '../testData/titlesText/pageTitleText';
 import TableTitlesText from '../testData/titlesText/tableTitleText';

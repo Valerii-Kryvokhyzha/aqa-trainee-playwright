@@ -1,16 +1,26 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import URLs from '../provider/pageURLs/websiteURLsProvider';
+import URLs from '../provider/pageURLs/websiteURLsPath';
 import UserSteps from '../steps/userSteps';
 import BasePageSteps from '../steps/basePageSteps';
-import UserValidationMessages from '../testData/formValidationMessages/userValidationMessages';
 import PageTitlesText from '../testData/titlesText/pageTitleText';
 import Colours from '../provider/colours';
 import ActionButtonsText from '../testData/buttonsText/actionButtonText';
-import {UserInvalidData} from '../testData/inputDataValues/userInputData';
+import UserValidData from '../testData/inputDataValues/userInputData';
+import {
+	userEmptyFieldsValidationMessagesDTO,
+	userShortValidationMessagesDTO,
+} from '../dto/userValidationMessagesDto';
+import {userDTO} from '../dto/userDto';
 
 let userSteps: UserSteps;
 let basePageSteps: BasePageSteps;
+
+userDTO.createUser(
+	UserValidData.selectorDefault,
+	UserValidData.nameMIN.substring(0, 2),
+	UserValidData.year.substring(0, 3)
+);
 
 test.beforeEach(async () => {
 	await driver.start();
@@ -41,20 +51,15 @@ test('Check action buttons properties in "Add User" form', async () => {
 test('Check validation messages in "Add User" form with empty fields', async () => {
 	await userSteps.clickCreateButtonInAddUserForm();
 	await userSteps.checkThatAllValidationMessagesInAddUserFormHaveText(
-		UserValidationMessages.nameEmpty,
-		UserValidationMessages.yearEmpty
+		userEmptyFieldsValidationMessagesDTO
 	);
 });
 
 test('Check validation messages in "Add User" form with invalid data', async () => {
-	await userSteps.fillAllTextFieldsWithDataInAddUserForm(
-		UserInvalidData.nameShort,
-		UserInvalidData.yearShort
-	);
+	await userSteps.fillAllTextFieldsWithDataInAddUserForm(userDTO);
 	await userSteps.clickCreateButtonInAddUserForm();
 	await userSteps.checkThatAllValidationMessagesInAddUserFormHaveText(
-		UserValidationMessages.nameShort,
-		UserValidationMessages.yearIncorrect
+		userShortValidationMessagesDTO
 	);
 });
 

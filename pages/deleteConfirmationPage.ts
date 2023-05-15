@@ -10,7 +10,7 @@ export default class DeletePage extends BasePage {
 		return this.page.getByTestId(ActionButtons.cancel);
 	}
 
-	public YesConfButton() {
+	public YesConfirmationButton() {
 		return this.page.getByTestId(ActionButtons.yes);
 	}
 }

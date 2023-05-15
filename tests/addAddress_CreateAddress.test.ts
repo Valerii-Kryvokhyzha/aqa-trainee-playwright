@@ -1,10 +1,10 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import URLs from '../provider/pageURLs/websiteURLsProvider';
+import URLs from '../provider/pageURLs/websiteURLsPath';
 import AddressSteps from '../steps/addressSteps';
 import MainPageSteps from '../steps/mainPageSteps';
-import AddressValidData from '../testData/inputDataValues/addressInputData';
 import BasePageSteps from '../steps/basePageSteps';
+import {defaultAddressWithValidData} from '../dto/addressDto';
 
 let addressSteps: AddressSteps;
 let mainPageSteps: MainPageSteps;
@@ -23,25 +23,19 @@ test.beforeEach(async () => {
 
 test('Check that new Address is created using valid data on "Add Address" page', async () => {
 	await addressSteps.fillAllTextFieldsWithDataInAddAddressForm(
-		AddressValidData.streetMAX,
-		AddressValidData.cityMAX,
-		AddressValidData.stateMAX,
-		AddressValidData.zipCodeMAX
+		defaultAddressWithValidData
 	);
 	await addressSteps.clickCreateButtonInAddAddressForm();
 	await basePageSteps.checkPageURL(URLs.homeURL);
 	await mainPageSteps.checkThatAddressWithValidDataIsAddedToAddressesTableOnMainPage(
-		AddressValidData.streetMAX,
-		AddressValidData.cityMAX,
-		AddressValidData.stateMAX,
-		AddressValidData.zipCodeMAX
+		defaultAddressWithValidData
 	);
 });
 
 test.afterEach(async () => {
 	await mainPageSteps.deleteAddedAddressFromAddressesTableOnMainPage();
 	await mainPageSteps.checkThatAddressIsDeletedFromAddressesTableOnMainPage(
-		AddressValidData.streetMAX
+		defaultAddressWithValidData
 	);
 
 	driver.close();

@@ -2,6 +2,8 @@ import {expect} from '@playwright/test';
 import {driver} from '../base/driver/driver';
 import MainPage from '../pages/mainPage';
 import DeletePage from '../pages/deleteConfirmationPage';
+import UserDto from '../dto/userDto';
+import AddressDto from '../dto/addressDto';
 
 export default class MainPageSteps {
 	public mainPage: MainPage;
@@ -13,33 +15,34 @@ export default class MainPageSteps {
 	}
 
 	public async checkThatUserWithValidDataIsAddedToUsersTableOnMainPage(
-		gender: string,
-		userName: string,
-		year: string
+		user: UserDto
 	) {
-		await expect(this.mainPage.lastUserGenderInTable()).toHaveText(gender);
-		await expect(this.mainPage.lastUserNameInTable()).toHaveText(userName);
-		await expect(this.mainPage.lastUserYearInTable()).toHaveText(year);
+		await expect(this.mainPage.lastUserGenderInTable()).toHaveText(
+			user.gender
+		);
+		await expect(this.mainPage.lastUserNameInTable()).toHaveText(user.name);
+		await expect(this.mainPage.lastUserYearInTable()).toHaveText(user.year);
 	}
 
 	public async deleteAddedUserFromUsersTableOnMainPage() {
 		await this.mainPage.deleteLastUserButton().click();
-		await this.deletePage.YesConfButton().click();
+		await this.deletePage.YesConfirmationButton().click();
 	}
 
-	public async clickDeleteAddedUserButtonInUsersTable() {
+	public async clickDeleteLastUserButtonInUsersTable() {
 		await this.mainPage.deleteLastUserButton().click();
+	}
+	public async clickDeleteUserButtonInUsersTable(userName: UserDto) {
+		await this.mainPage.deleteUserButton(userName).click();
 	}
 
 	public async clickYesConfirmationButtonInDeleteUserForm() {
-		await this.deletePage.YesConfButton().click();
+		await this.deletePage.YesConfirmationButton().click();
 	}
 
-	public async checkThatUserIsDeletedFromUsersTableOnMainPage(
-		userName: string
-	) {
+	public async checkThatUserIsDeletedFromUsersTableOnMainPage(user: UserDto) {
 		await expect(
-			this.mainPage.checkRowInUsersTableWithUserName(userName)
+			this.mainPage.checkRowInUsersTableWithUserName(user.name)
 		).toHaveCount(0);
 	}
 
@@ -48,24 +51,25 @@ export default class MainPageSteps {
 	}
 
 	public async checkThatAddressWithValidDataIsAddedToAddressesTableOnMainPage(
-		street: string,
-		city: string,
-		state: string,
-		zipCode: string
+		address: AddressDto
 	) {
 		await expect(this.mainPage.lastAddressStreetInTable()).toHaveText(
-			street
+			address.street
 		);
-		await expect(this.mainPage.lastAddressCityInTable()).toHaveText(city);
-		await expect(this.mainPage.lastAddressStateInTable()).toHaveText(state);
+		await expect(this.mainPage.lastAddressCityInTable()).toHaveText(
+			address.city
+		);
+		await expect(this.mainPage.lastAddressStateInTable()).toHaveText(
+			address.state
+		);
 		await expect(this.mainPage.lastAddressZipCodeInTable()).toHaveText(
-			zipCode
+			address.zipCode
 		);
 	}
 
 	public async deleteAddedAddressFromAddressesTableOnMainPage() {
 		await this.mainPage.deleteLastAddressButton().click();
-		await this.deletePage.YesConfButton().click();
+		await this.deletePage.YesConfirmationButton().click();
 	}
 
 	public async clickDeleteAddedAddressButtonInAddressesTable() {
@@ -73,10 +77,12 @@ export default class MainPageSteps {
 	}
 
 	public async checkThatAddressIsDeletedFromAddressesTableOnMainPage(
-		street: string
+		address: AddressDto
 	) {
 		await expect(
-			this.mainPage.checkRowInAddressesTableWithAddressStreet(street)
+			this.mainPage.checkRowInAddressesTableWithAddressStreet(
+				address.street
+			)
 		).toHaveCount(0);
 	}
 

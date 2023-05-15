@@ -1,17 +1,28 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import URLs from '../provider/pageURLs/websiteURLsProvider';
+import URLs from '../provider/pageURLs/websiteURLsPath';
 import AddressSteps from '../steps/addressSteps';
 import BasePageSteps from '../steps/basePageSteps';
-import {AddressInvalidData} from '../testData/inputDataValues/addressInputData';
+import AddressValidData from '../testData/inputDataValues/addressInputData';
 
 import PageTitlesText from '../testData/titlesText/pageTitleText';
 import Colours from '../provider/colours';
 import ActionButtonsText from '../testData/buttonsText/actionButtonText';
-import AddressValidationMessages from '../testData/formValidationMessages/addressValidationMessages';
+import {addressDTO} from '../dto/addressDto';
+import {
+	addressEmptyFieldsValidationMessagesDTO,
+	addressShortValidationMessagesDTO,
+} from '../dto/addressValidationMessagesDto';
 
 let addressSteps: AddressSteps;
 let basePageSteps: BasePageSteps;
+
+addressDTO.createAddress(
+	AddressValidData.streetMAX.substring(0, 4),
+	AddressValidData.cityMAX.substring(0, 2),
+	AddressValidData.stateMAX.substring(0, 1),
+	AddressValidData.zipCode.substring(0, 4)
+);
 
 test.beforeEach(async () => {
 	await driver.start();
@@ -44,26 +55,15 @@ test('Check action buttons properties in "Add Address" form', async () => {
 test('Check validation messages in "Add Address" form with empty fields', async () => {
 	await addressSteps.clickCreateButtonInAddAddressForm();
 	await addressSteps.checkThatAllValidationMessagesInAddAddressFormHaveText(
-		AddressValidationMessages.streetEmpty,
-		AddressValidationMessages.cityEmpty,
-		AddressValidationMessages.stateEmpty,
-		AddressValidationMessages.zipCodeEmpty
+		addressEmptyFieldsValidationMessagesDTO
 	);
 });
 
 test('Check validation messages in "Add Address" form with invalid data', async () => {
-	await addressSteps.fillAllTextFieldsWithDataInAddAddressForm(
-		AddressInvalidData.streetMIN,
-		AddressInvalidData.cityMIN,
-		AddressInvalidData.stateMIN,
-		AddressInvalidData.zipCodeMIN
-	);
+	await addressSteps.fillAllTextFieldsWithDataInAddAddressForm(addressDTO);
 	await addressSteps.clickCreateButtonInAddAddressForm();
 	await addressSteps.checkThatAllValidationMessagesInAddAddressFormHaveText(
-		AddressValidationMessages.streetShort,
-		AddressValidationMessages.cityShort,
-		AddressValidationMessages.stateShort,
-		AddressValidationMessages.zipCodeIncorrect
+		addressShortValidationMessagesDTO
 	);
 });
 

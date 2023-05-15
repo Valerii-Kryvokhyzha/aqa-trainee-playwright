@@ -1,10 +1,10 @@
 import {test} from '@playwright/test';
 import {driver} from '../base/driver/driver';
-import URLs from '../provider/pageURLs/websiteURLsProvider';
+import URLs from '../provider/pageURLs/websiteURLsPath';
 import UserSteps from '../steps/userSteps';
 import MainPageSteps from '../steps/mainPageSteps';
 import BasePageSteps from '../steps/basePageSteps';
-import UserValidData from '../testData/inputDataValues/userInputData';
+import {defaultUserWithValidData} from '../dto/userDto';
 
 let userSteps: UserSteps;
 let mainPageSteps: MainPageSteps;
@@ -23,25 +23,22 @@ test.beforeEach(async () => {
 
 test('Check that new User is created using valid data on "Add User" page', async () => {
 	await userSteps.selectValueFromGenderDropdownInAddUserForm(
-		UserValidData.selectorMale
+		defaultUserWithValidData
 	);
 	await userSteps.fillAllTextFieldsWithDataInAddUserForm(
-		UserValidData.nameMIN,
-		UserValidData.yearMIN
+		defaultUserWithValidData
 	);
 	await userSteps.clickCreateButtonInAddUserForm();
 	await basePageSteps.checkPageURL(URLs.homeURL);
 	await mainPageSteps.checkThatUserWithValidDataIsAddedToUsersTableOnMainPage(
-		UserValidData.selectorMale,
-		UserValidData.nameMIN,
-		UserValidData.yearMIN
+		defaultUserWithValidData
 	);
 });
 
 test.afterEach(async () => {
 	await mainPageSteps.deleteAddedUserFromUsersTableOnMainPage();
 	await mainPageSteps.checkThatUserIsDeletedFromUsersTableOnMainPage(
-		UserValidData.nameMIN
+		defaultUserWithValidData
 	);
 
 	driver.close();

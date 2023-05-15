@@ -1,6 +1,8 @@
 import {expect} from '@playwright/test';
 import {driver} from '../base/driver/driver';
 import AddAddressPage from '../pages/addAddressPage';
+import AddressDto from '../dto/addressDto';
+import AddressValidationMessagesDto from '../dto/addressValidationMessagesDto';
 
 export default class AddressSteps {
 	public addAddressPage: AddAddressPage;
@@ -10,15 +12,12 @@ export default class AddressSteps {
 	}
 
 	public async fillAllTextFieldsWithDataInAddAddressForm(
-		street: string,
-		city: string,
-		state: string,
-		zipCode: string
+		address: AddressDto
 	) {
-		await this.addAddressPage.streetAddressInput().fill(street);
-		await this.addAddressPage.cityInput().fill(city);
-		await this.addAddressPage.stateInput().fill(state);
-		await this.addAddressPage.zipCodeInput().fill(zipCode);
+		await this.addAddressPage.streetAddressInput().fill(address.street);
+		await this.addAddressPage.cityInput().fill(address.city);
+		await this.addAddressPage.stateInput().fill(address.state);
+		await this.addAddressPage.zipCodeInput().fill(address.zipCode);
 	}
 
 	public async clickCreateButtonInAddAddressForm() {
@@ -59,23 +58,20 @@ export default class AddressSteps {
 	}
 
 	public async checkThatAllValidationMessagesInAddAddressFormHaveText(
-		streetValidationMessage: string,
-		cityValidationMessage: string,
-		stateValidationMessage: string,
-		zipCodeValidationMessage: string
+		validationMessage: AddressValidationMessagesDto
 	) {
 		await expect(
 			this.addAddressPage.streetAddressValidationMessage()
-		).toHaveText(`${streetValidationMessage}`);
+		).toHaveText(`${validationMessage.streetMessage}`);
 
 		await expect(this.addAddressPage.cityValidationMessage()).toHaveText(
-			`${cityValidationMessage}`
+			`${validationMessage.cityMessage}`
 		);
 		await expect(this.addAddressPage.stateValidationMessage()).toHaveText(
-			`${stateValidationMessage}`
+			`${validationMessage.stateMessage}`
 		);
 		await expect(this.addAddressPage.zipCodeValidationMessage()).toHaveText(
-			`${zipCodeValidationMessage}`
+			`${validationMessage.zipCodeMessage}`
 		);
 	}
 }

@@ -10,7 +10,7 @@ export default class DeleteSteps {
 	}
 
 	public async clickYesButtonInDeleteForm() {
-		await this.deletePage.YesConfButton().click();
+		await this.deletePage.YesConfirmationButton().click();
 	}
 
 	public async clickCancelButtonInDeleteForm() {
@@ -32,8 +32,10 @@ export default class DeleteSteps {
 		text: string,
 		backgroundColor: string
 	) {
-		await expect(this.deletePage.YesConfButton()).toHaveText(`${text}`);
-		await expect(this.deletePage.YesConfButton()).toHaveCSS(
+		await expect(this.deletePage.YesConfirmationButton()).toHaveText(
+			`${text}`
+		);
+		await expect(this.deletePage.YesConfirmationButton()).toHaveCSS(
 			'background-color',
 			`${backgroundColor}`
 		);
