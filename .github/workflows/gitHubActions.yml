@@ -4,7 +4,9 @@ on:
     workflow_dispatch:
     push:
     pull_request:
-
+    schedule:
+        # Every day at 23:30 (UTC+3 hours)
+        - cron: '30 20 * * *'
 jobs:
     tests_run:
         name: AQA trainee tests run
