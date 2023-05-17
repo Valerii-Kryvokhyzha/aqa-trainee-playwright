@@ -2,7 +2,6 @@ name: AQA trainee Playwright Tests
 
 on:
     workflow_dispatch:
-    push:
     pull_request:
     schedule:
         # Every day at 11:10 (UTC+3 hours)
@@ -13,8 +12,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-              with:
-                  ref: gitHubActions
+              with: # !!! REMOVE
+                  ref: gitHubActions # !!! REMOVE
 
             - uses: actions/setup-node@v3
 
