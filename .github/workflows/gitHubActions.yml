@@ -5,14 +5,17 @@ on:
     push:
     pull_request:
     schedule:
-        # Every day at 23:30 (UTC+3 hours)
-        - cron: '30 20 * * *'
+        # Every day at 11:10 (UTC+3 hours)
+        - cron: '10 8 * * *'
 jobs:
     tests_run:
         name: AQA trainee tests run
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
+              with:
+                  ref: gitHubActions
+
             - uses: actions/setup-node@v3
 
             - name: Install dependencies
