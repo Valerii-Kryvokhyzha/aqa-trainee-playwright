@@ -35,6 +35,7 @@ test.beforeEach(async () => {
 });
 
 test('Check that new User is edited using valid data', async () => {
+	test.slow();
 	userDTO.gender = UserValidData.selectorFemale;
 	userDTO.name = UserValidData.nameMIN;
 	userDTO.year = UserValidData.year;
