@@ -23,7 +23,3 @@ export default class RequestOptions {
 	params?: {[key: string]: string | number | boolean};
 	timeout?: number;
 }
-
-const requestOptions = new RequestOptions();
-
-export {requestOptions};
