@@ -1,6 +1,6 @@
 import {sessionValue} from '../../runtimeVariables/sessionValue';
 
-export default class ApiRequest {
+export default class ApiRequestData {
 	static postDefaultUser = {
 		name: 'morpheus',
 		job: 'leader',

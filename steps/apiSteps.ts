@@ -1,35 +1,23 @@
 import {expect} from '@playwright/test';
 import {client} from '../base/client/client';
 import {response} from '../runtimeVariables/response';
-import ApiResponse from '../testData/apiData/apiResponse';
-import RequestOptions from '../base/client/RequestOptions';
+import ApiResponse from '../testData/apiData/apiTestData';
+import RequestOptions from '../base/client/requestOptions';
 
 class API_Steps {
-	public async executeRequestGET(
-		endPoint: string,
-		options?: RequestOptions,
-		statusCode = 200
-	) {
+	public async executeRequestGET(endPoint: string, options?: RequestOptions) {
 		response.value = await client.requestContext.get(endPoint, options);
-		expect(response.value.status()).toBe(statusCode);
 	}
 
 	public async executeRequestPOST(
 		endPoint: string,
-		options?: RequestOptions,
-		statusCode = 200
+		options?: RequestOptions
 	) {
 		response.value = await client.requestContext.post(endPoint, options);
-		expect(response.value.status()).toBe(statusCode);
 	}
 
-	public async executeRequestPUT(
-		endPoint: string,
-		options?: RequestOptions,
-		statusCode = 200
-	) {
+	public async executeRequestPUT(endPoint: string, options?: RequestOptions) {
 		response.value = await client.requestContext.put(endPoint, options);
-		expect(response.value.status()).toBe(statusCode);
 	}
 
 	public async executeRequestDELETE(
@@ -40,13 +28,20 @@ class API_Steps {
 	}
 
 	public async checkResponseVariable(
-		variable: string | any,
+		variable: string,
 		expectedVariable: any
 	) {
 		const jsonResponse = await response.value.json();
 		const jsonVariable = await jsonResponse[variable];
 
 		expect(jsonVariable).toBe(expectedVariable);
+	}
+
+	public async checkResponseAnyIncludedVariable(
+		jsonResponse: string,
+		expectedVariable: any
+	) {
+		expect(jsonResponse).toBe(expectedVariable);
 	}
 
 	public async checkStatusCode(statusCode: number) {

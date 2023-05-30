@@ -1,6 +1,6 @@
-import ApiRequest from './apiRequest';
+import ApiRequestData from './apiRequestData';
 
-export default class ApiResponse {
+export default class ApiTestData {
 	static getUser = {
 		data: {
 			id: 12,
@@ -77,7 +77,7 @@ export default class ApiResponse {
 		createdAt: '2023-05-25T08:02:08.666Z',
 	};
 
-	static postCreatedCustomUser = ApiRequest.postCustomUser;
+	static postCreatedCustomUser = ApiRequestData.postCustomUser;
 
 	static postSuccessfullDefaultRegister = {
 		id: 4,
@@ -96,5 +96,5 @@ export default class ApiResponse {
 		error: 'user not found',
 	};
 
-	static putUpdatedUser = ApiRequest.putUpdateUser;
+	static putUpdatedUser = ApiRequestData.putUpdateUser;
 }
