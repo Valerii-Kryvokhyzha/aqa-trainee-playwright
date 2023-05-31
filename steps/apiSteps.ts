@@ -1,7 +1,7 @@
 import {expect} from '@playwright/test';
 import {client} from '../base/client/client';
 import {response} from '../runtimeVariables/response';
-import ApiResponse from '../testData/apiData/apiTestData';
+import ApiTestData from '../testData/apiData/apiTestData';
 import RequestOptions from '../base/client/requestOptions';
 
 class API_Steps {
@@ -52,7 +52,7 @@ class API_Steps {
 		expect(response.value.statusText()).toBe(statusText);
 	}
 
-	public async checkFullResponse(expectedResponse: ApiResponse) {
+	public async checkFullResponse(expectedResponse: ApiTestData) {
 		const jsonResponse = await response.value.json();
 		expect(jsonResponse).toEqual(expectedResponse);
 	}
