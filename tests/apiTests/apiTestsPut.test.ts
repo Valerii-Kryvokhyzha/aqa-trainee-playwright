@@ -2,15 +2,12 @@ import {test} from '@playwright/test';
 import {client} from '../../base/client/client';
 import {apiSteps} from '../../steps/apiSteps';
 import API_URLs from '../../provider/pageURLs/api_URLs';
-import Request_Options from '../../base/client/request_Options';
+import {requestOptions} from '../../base/client/request_Options';
 import ApiRequestData from '../../testData/apiData/apiRequestData';
 import ApiTestData from '../../testData/apiData/apiTestData';
 
-let requestOptions: Request_Options;
-
 test.beforeEach(async () => {
 	await client.createApiContext(API_URLs.reqresURL);
-	requestOptions = new Request_Options();
 });
 
 test('PUT update User', async () => {
