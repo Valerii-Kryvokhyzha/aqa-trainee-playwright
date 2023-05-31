@@ -24,6 +24,6 @@ export default class RequestOptions {
 	timeout?: number;
 }
 
-const requestOptions = new RequestOptions();
+/* const requestOptions = new RequestOptions();
 
-export {requestOptions};
+export {requestOptions}; */
