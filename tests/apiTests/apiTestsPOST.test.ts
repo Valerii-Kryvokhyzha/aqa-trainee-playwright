@@ -2,15 +2,15 @@ import {test} from '@playwright/test';
 import {client} from '../../base/client/client';
 import {apiSteps} from '../../steps/apiSteps';
 import API_URLs from '../../provider/pageURLs/api_URLs';
-import RequestOptions from '../../base/client/requestOptions';
+import Request_Options from '../../base/client/request_Options';
 import ApiTestData from '../../testData/apiData/apiTestData';
 import ApiRequestData from '../../testData/apiData/apiRequestData';
 
-let requestOptions: RequestOptions;
+let requestOptions: Request_Options;
 
 test.beforeEach(async () => {
 	await client.createApiContext(API_URLs.reqresURL);
-	requestOptions = new RequestOptions();
+	requestOptions = new Request_Options();
 });
 
 test('POST create User', async () => {

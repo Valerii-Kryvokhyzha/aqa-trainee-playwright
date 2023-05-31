@@ -2,27 +2,33 @@ import {expect} from '@playwright/test';
 import {client} from '../base/client/client';
 import {response} from '../runtimeVariables/response';
 import ApiTestData from '../testData/apiData/apiTestData';
-import RequestOptions from '../base/client/requestOptions';
+import Request_Options from '../base/client/request_Options';
 
 class API_Steps {
-	public async executeRequestGET(endPoint: string, options?: RequestOptions) {
+	public async executeRequestGET(
+		endPoint: string,
+		options?: Request_Options
+	) {
 		response.value = await client.requestContext.get(endPoint, options);
 	}
 
 	public async executeRequestPOST(
 		endPoint: string,
-		options?: RequestOptions
+		options?: Request_Options
 	) {
 		response.value = await client.requestContext.post(endPoint, options);
 	}
 
-	public async executeRequestPUT(endPoint: string, options?: RequestOptions) {
+	public async executeRequestPUT(
+		endPoint: string,
+		options?: Request_Options
+	) {
 		response.value = await client.requestContext.put(endPoint, options);
 	}
 
 	public async executeRequestDELETE(
 		endPoint: string,
-		options?: RequestOptions
+		options?: Request_Options
 	) {
 		response.value = await client.requestContext.delete(endPoint, options);
 	}

@@ -1,6 +1,6 @@
 import {ReadStream} from 'fs';
 
-export default class RequestOptions {
+export default class Request_Options {
 	data?: string | Buffer | any;
 	failOnStatusCode?: boolean;
 	form?: {[key: string]: string | number | boolean};
@@ -23,7 +23,3 @@ export default class RequestOptions {
 	params?: {[key: string]: string | number | boolean};
 	timeout?: number;
 }
-
-/* const requestOptions = new RequestOptions();
-
-export {requestOptions}; */
