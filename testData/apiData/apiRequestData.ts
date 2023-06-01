@@ -1,19 +1,21 @@
 import {sessionValue} from '../../runtimeVariables/sessionValue';
 
 export default class ApiRequestData {
-	static postDefaultUser = {
+	static postUserData = {
 		name: 'morpheus',
 		job: 'leader',
 	};
 
-	static postCustomUser = {
+	static postCustomUserData = {
 		firstName: `User_${sessionValue.stringValue}`,
 		lastName: 'Surname',
 		position: 'Engineer',
 		randomID: sessionValue.numberValue,
+		id: '',
+		createdAt: '',
 	};
 
-	static postDefaultRegisterData = {
+	static postAuthenticationData = {
 		email: 'eve.holt@reqres.in',
 		password: 'pistol',
 	};
@@ -22,14 +24,15 @@ export default class ApiRequestData {
 		password: `${sessionValue.stringValue}${sessionValue.numberValue}`,
 	};
 
-	static postInvalidloginData = {
+	static postInvalidLoginData = {
 		email: `${sessionValue.stringValue}.holt@reqres.in`,
 		password: 'pistol',
 	};
 
 	static putUpdateUser = {
-		name: `${sessionValue.stringValue}`,
+		name: sessionValue.stringValue,
 		job: 'zion resident',
 		status: 'updated or Not',
+		updatedAt: '',
 	};
 }

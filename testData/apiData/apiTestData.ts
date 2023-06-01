@@ -1,7 +1,16 @@
+import {GetListOfUsersDto} from '../../dto/apiDTO/getListOfUsersDto';
+import {GetUserDto} from '../../dto/apiDTO/getUserDto';
+import {PostAuthenticationDto} from '../../dto/apiDTO/postAuthenticationDtoDto';
+import {PostUserDto} from '../../dto/apiDTO/postUserDto';
+import {PutUserDto} from '../../dto/apiDTO/putUserDto';
 import ApiRequestData from './apiRequestData';
 
 export default class ApiTestData {
-	static getUser = {
+	static emptyBody = {};
+
+	static defaultToken = 'QpwL5tke4Pnpja7X4';
+
+	static getUser: GetUserDto = {
 		data: {
 			id: 12,
 			email: 'rachel.howell@reqres.in',
@@ -15,7 +24,7 @@ export default class ApiTestData {
 		},
 	};
 
-	static getListOfUsers = {
+	static getListOfUsers: GetListOfUsersDto = {
 		page: 1,
 		per_page: 6,
 		total: 12,
@@ -70,31 +79,32 @@ export default class ApiTestData {
 		},
 	};
 
-	static postCreatedDefaultUser = {
+	static postCreatedUser: PostUserDto = {
 		name: 'morpheus',
 		job: 'leader',
-		id: '296',
-		createdAt: '2023-05-25T08:02:08.666Z',
+		id: '',
+		createdAt: '',
 	};
 
-	static postCreatedCustomUser = ApiRequestData.postCustomUser;
+	static postCreatedCustomUser: PostUserDto =
+		ApiRequestData.postCustomUserData;
 
-	static postSuccessfullDefaultRegister = {
+	static postRegisterData: PostAuthenticationDto = {
 		id: 4,
-		token: 'QpwL5tke4Pnpja7X4',
+		token: this.defaultToken,
 	};
 
-	static postUnsuccessfullRegisterWithoutEmail = {
+	static postUnsuccessfullRegisterWithoutEmail: PostAuthenticationDto = {
 		error: 'Missing email or username',
 	};
 
-	static postSuccessfullDefaultLogin = {
-		token: 'QpwL5tke4Pnpja7X4',
+	static postSuccessfullLogin: PostAuthenticationDto = {
+		token: this.defaultToken,
 	};
 
-	static postUnsuccessfullLoginWithIncorrectEmail = {
+	static postUnsuccessfullLoginWithIncorrectEmail: PostAuthenticationDto = {
 		error: 'user not found',
 	};
 
-	static putUpdatedUser = ApiRequestData.putUpdateUser;
+	static putUpdatedUser: PutUserDto = ApiRequestData.putUpdateUser;
 }
