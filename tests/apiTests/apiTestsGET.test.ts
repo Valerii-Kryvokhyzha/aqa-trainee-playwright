@@ -38,6 +38,5 @@ test('GET User with non-existent ID', async () => {
 
 	const actualResponse: GetUserDto =
 		(await response.convertToJSON()) as GetUserDto;
-
-	await apiSteps.checkGetResponse(actualResponse, ApiTestData.emptyBody);
+	await apiSteps.checkGetResponse(actualResponse, {});
 });

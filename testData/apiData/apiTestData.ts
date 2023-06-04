@@ -6,8 +6,6 @@ import {PutUserDto} from '../../dto/apiDTO/putUserDto';
 import ApiRequestData from './apiRequestData';
 
 export default class ApiTestData {
-	static emptyBody = {};
-
 	static defaultToken = 'QpwL5tke4Pnpja7X4';
 
 	static getUser: GetUserDto = {
